@@ -7,7 +7,7 @@
 使用 VSCode 编辑 CSV 文件时，推荐使用扩展 [Edit csv](https://marketplace.visualstudio.com/items?itemName=janisdd.vscode-edit-csv)。
 
 **Windows** 需要安装 [Python](https://www.python.org/downloads/) 和 [Git](https://git-scm.com/download/windows)，并加入 `$PATH` 环境变量。  
-**Linux** 大多数发行版默认自带 `python` 和 `git`；**macOS** 自带 `python`，但使用 `git` 需要通过 `xcode-select –-install` 安装命令行工具，或单独下载 [Git](https://git-scm.com/download/mac)。
+**Linux** 大多数发行版默认自带 `python3` 和 `git`；**macOS** 自带 `python3`，但使用 `git` 需要通过 `xcode-select --install` 安装命令行工具，或单独下载 [Git](https://git-scm.com/download/mac)。
 
 #### Windows
 
@@ -24,7 +24,7 @@
    `git clone https://github.com/solosky/pixl.js.git; cd pixl.js`
 2. 编辑 `fw/data/i18n.csv`
 3. 运行 `python3 fw/scripts/i18n_gen.py` 生成新的语言文件。
-4. 可选：如果在 `i18n.csv` 中添加了新字符，运行 `python fw/scripts/font_data_gen.py` 生成新的字体数据。
+4. 可选：如果在 `i18n.csv` 中添加了新字符，运行 `python3 fw/scripts/font_data_gen.py` 生成新的字体数据。
 5. [构建固件](03-Build-Firmware.md)
 
 ### 如何添加新的语言翻译
@@ -81,12 +81,12 @@
 
 4. 在其他 `.js` 文件中（`lang: {` 部分内）添加你的语言：
 
-   `vueja: '日本語',`
+   `ja: '日本語',`
 
 5. 在 `web/src/App.vue` 文件中添加：
 
 ```js
-<el-dropdown-item Enabled="language==='ja'" command="ja" divided>
+<el-dropdown-item Enabled="language==='ja_JP'" command="ja_JP" divided>
  {{ $t('lang.ja') }}
  </el-dropdown-item>
 ```
