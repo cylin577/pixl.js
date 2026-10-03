@@ -12,6 +12,8 @@
 
 #define MAX_MTU_DAT_SIZE (NRF_SDH_BLE_GATT_MAX_MTU_SIZE-3)
 
+#include <stdbool.h>
+
 
 typedef enum {
     BLE_DEVICE_MODE_PIXLJS,
