@@ -118,7 +118,6 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_NO_SLEEP:
         p_settings->no_sleep_mode = !p_settings->no_sleep_mode;
-        nrf_pwr_mgmt_set_timeout(p_settings->no_sleep_mode ? 0 : p_settings->sleep_timeout_sec);
         settings_scene_main_reload(app);
         break;
 
