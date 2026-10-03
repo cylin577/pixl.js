@@ -2,6 +2,10 @@
 
 这是一个基于原版[Pixl.js](http://www.espruino.com/Pixl.js)的复刻版本，主要的功能是用来模拟Amiibo。
 
+## About this fork
+
+This is a personal fork of [solosky/pixl.js](https://github.com/solosky/pixl.js). The `main` branch carries features I found useful for my own use — it may diverge from the upstream repo at any time. Topic branches are kept for PRs back to the upstream main repo; do not PR fork-specific `main` changes upstream.
+
 ## 图片
 
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.jpg)
