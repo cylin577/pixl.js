@@ -6,6 +6,8 @@
 
 This is a personal fork of [solosky/pixl.js](https://github.com/solosky/pixl.js). The `main` branch carries features I found useful for my own use — it may diverge from the upstream repo at any time. Topic branches are kept for PRs back to the upstream main repo; do not PR fork-specific `main` changes upstream.
 
+The CLI companion tool lives in its own repo: [cylin577/pixl-cli](https://github.com/cylin577/pixl-cli).
+
 ## 图片
 
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.jpg)
