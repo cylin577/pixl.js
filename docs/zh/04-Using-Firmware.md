@@ -160,7 +160,7 @@ Mifare卡片常见用于门禁卡，设备可以支持完整模拟Mifare类型�
 * Mifare 2K
 * Mifare 4K
 
-NTAG系列卡片常用于设备识别。支持的NTAG卡片类型有：
+NTAG系列及Mifare Ultralight系列卡片常用于设备识别。支持的卡片类型有：
 
 * NTAG 210
 * NTAG 212
