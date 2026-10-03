@@ -27,6 +27,7 @@ const char * const lang_pt_PT[_L_COUNT] = {
     [_L_APP_SET_SHOW_MEM_USAGE] = "Memoria Usada",
     [_L_APP_SET_HIBERNATE] = "Suspender",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Suspender em:",
+    [_L_APP_SET_NO_SLEEP] = "Não dormir ao emular",
     [_L_APP_SET_LANGUAGE] = "Idioma",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Atualizações",

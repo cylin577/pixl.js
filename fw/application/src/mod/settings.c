@@ -36,6 +36,7 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                             .amiidb_sort_column = 0,
                                             .chameleon_slot_num = 8,
                                             .amiibolink_mode = 0, // 0 = not set, use default (manual)
+                                            .no_sleep_mode = false,
                                         };
 
 settings_data_t m_settings_data = {0};
@@ -84,6 +85,8 @@ static void validate_settings() {
         m_settings_data.amiibolink_mode != BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
         m_settings_data.amiibolink_mode = 0; // Reset to "not set" if invalid
     }
+
+    BOOL_VALIDATE(m_settings_data.no_sleep_mode, 0);
 }
 
 int32_t settings_init() {
@@ -121,22 +124,30 @@ int32_t settings_save() {
     }
 
     settings_data_t old_settings_data;
+    bool needs_write = false;
+    bool needs_meta_update = false;
 
     err = p_driver->read_file_data(SETTINGS_FILE_NAME, &old_settings_data, sizeof(settings_data_t));
-    bool not_found = false;
     if (err == VFS_ERR_NOOBJ) {
-        not_found = true;
+        needs_write = true;
+        needs_meta_update = true;
     } else if (err < 0) {
-        return NRF_ERROR_INVALID_STATE;
+        NRF_LOG_WARNING("settings read failed (%d), recreating settings file", err);
+        needs_write = true;
+    } else if ((size_t)err != sizeof(settings_data_t)) {
+        NRF_LOG_WARNING("settings size mismatch (%d != %d), recreating settings file", err, (int)sizeof(settings_data_t));
+        needs_write = true;
+    } else if (memcmp(&m_settings_data, &old_settings_data, sizeof(settings_data_t)) != 0) {
+        needs_write = true;
     }
 
-    if (not_found || memcmp(&m_settings_data, &old_settings_data, sizeof(settings_data_t)) != 0) {
+    if (needs_write) {
         err = p_driver->write_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
         if (err < 0) {
             return NRF_ERROR_INVALID_STATE;
         }
 
-        if (not_found) {
+        if (needs_meta_update) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(meta));
             meta.has_flags = true;

@@ -38,6 +38,17 @@ The Pixl.js firmware Main Screen is divided on several Applications, each one ca
 |  Amiibo Emulator<br> Amiibo Database<br>֍ AmiiboLink<br>ᛡᛒ  BLE File Transfer<br> Settings |
 |   |
 
+## Which application should I use?
+
+| Application | Use it for |
+| --- | --- |
+| Amiibo Emulator | Browsing `.BIN` amiibo files stored on the device and emulating one selected file. |
+| Amiibo Database | Selecting an amiibo from the built-in database and creating a virtual tag from its model data. This requires `key_retail.bin`. |
+| AmiiboLink | Emulating an AmiiboLink, AmiLoop, or omllbolink-style Bluetooth device for compatible phone apps. |
+| Card Emulator | Emulating supported Mifare and NTAG cards from raw card dump data. This is the Chameleon-style card emulator feature, not the amiibo emulator. |
+| BLE File Transfer | Connecting to the pixl.js web page or iNFC app to manage files or enter firmware update mode. |
+| Settings | Changing firmware options such as language, display contrast, backlight, battery mode, sleep timeout, and app visibility. |
+
 ----
 # Amiibo Emulator
 This application allows you to browse local storage for .BIN files and use them as the current amiibo.
@@ -102,6 +113,8 @@ This application allows the emulation of amiibo from the list of well know ones,
 
 _Each time one an amiibo is used the initial UUID is random generated._
 
+The database creates virtual tags from amiibo model data. Effects that depend on savedata or the encrypted application area, such as a 20-heart Wolf Link in Breath of the Wild, are not included in the database entry. To use that kind of savedata-dependent behavior, use Amiibo Emulator with your own legally acquired `.BIN` dump.
+
 Once you open the application the main menu have the options
 
 |   |
@@ -152,6 +165,8 @@ Allows to search the database using partial name, the search result is like a ca
 ## My Favorites…
 Display the existent favorites folders, you can browse them with side buttons and select one with middle button.  If you press and Hold the middle button a sub menu is open:
 
+Favorites are folders of shortcuts to amiibo from the built-in database. Use them when you want to group many database entries, for example by game or by the figures you use most often.
+
 |   |
 | ------------ |
 | New…<BR>Empty…<BR>Delete…<BR>[Back] |
@@ -170,6 +185,8 @@ Once you select a folder a list of the associated amiibo to that favorite folder
 
 ## My Amiibo…
 List the configured slots, you can browse the slots using side buttons, select one with middle button and the amiibo associated to that slot becomes the current one.
+
+My Amiibo is a small fixed slot list for quick access to selected database amiibo. Use it when you want a short rotation of frequently used amiibo without browsing favorite folders.
 
 If you press and hold middle button a sub menu with the option of reset the slot is shown allowing to empty the slot.
 
@@ -247,7 +264,7 @@ Other oddity is what the modes on applications do not correspond with the modes 
 
 # Card Emulator
 
-This application can be used to emulate Mifare cards and NTAG series cards.
+This application can be used to emulate Mifare cards and NTAG series cards. It is based on the Chameleon-style card emulation feature and is separate from Amiibo Emulator and Amiibo Database.
 
 Mifare cards are commonly used for access control cards, and the device can fully emulate Mifare types of cards. Supported Mifare card types include:
 
@@ -375,13 +392,15 @@ In this interface, you can perform the import and export of card data.
 |   |
 
 The import and export files are stored in the `/chameleon/dump/` folder.<br />
-If you need to import data, you need to write the data file you want to import to the above folder through the webpage in advance.
+If you need to import data, write the data file you want to import to that folder through the webpage in advance.
+
+Import files must be raw binary card dumps, not text or hex export files. The loader lists regular files from `/chameleon/dump/`, so the filename extension is only for your own organization; for example, `.dump` and `.bin` can both work if the file content is raw binary data. A file exported with `Save` is a good example of the expected format.
 
 * Load: Pressing the middle button allows you to enter the load interface. The interface will read all files under `/chameleon/dump/`, and pressing the middle button can perform the import.
 * Save: Pressing the middle button allows you to export the current card to the `/chameleon/dump/` folder.
 * Factory: Pressing the middle button allows you to reset the current card data to the default built-in empty card data.
 
-> The file size loaded must be exactly the same as the current card type to be imported. The data file size for different cards refers to the table in the `Card Emulation`.
+> The file size loaded must be exactly the same as the current card type to be imported. For example, an NTAG 215 dump must be 540 bytes and a Mifare 1K dump must be 1024 bytes. The data file size for each card type is listed in the table in `Card Emulation`.
 
 
 ## Advanced
@@ -507,7 +526,9 @@ With this setting you can control the brightness of the LCD screen or the contra
 ## Menu Animation
 Enable / disable the animation of items larger than screen allowing to read them completely, enabling this option increase the battery consumption.
 ## LiPO Battery
-Enable the use of a LiPO battery.  It requires an hardware mod. If you build a LiPO version of Pixl.js device, you can enable this option. For CR2032 version, this option will not work and should not be enabled.
+Enable the LiPO battery voltage profile. It requires hardware with a rechargeable LiPO battery connected to the expected battery sensing and charging circuit. This option does not add charging support by itself.
+
+Some OLED devices are sold with a rechargeable battery, but OLED alone does not prove that the board matches the LiPO hardware expected by this firmware. If the device uses a CR2032 cell, or if you are not sure how the battery circuit is wired, leave this option disabled.
 
 If you enable LiPO option, the device will use LiPO voltage level to display the battery level, and also can display a charge label when the battery is in charge mode.
 ## Memory Used

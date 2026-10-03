@@ -17,17 +17,18 @@ _L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Beállítások,Ein
 _L_APP_SET_VERSION,Version,版本,版本,Versión,Verzió,Version,Version,Versie,Versão,バージョン,Versão,Versione,Версия,Wersja,Version
 _L_APP_SET_STORAGE_USED,Used,已用,已用,Usado,Használt,Belegt,Utilisé,Gebruikt,Usado,使用ストレージ,Usada,Usato,Занято,Używane,Använt
 _L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,M. Flash,Külső Tároló,Externer Speicher,Stockage Externe,Externe Opslag,Armazenamento Externo,外部ストレージ,Memoria Externa,Memoria esterna,Накопитель,Pamięć Zewnętrzna,Extern lagring
-_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность,Kontrast OLED,Kontrast
-_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст,Kontrast,Kontrast
+_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст,Kontrast OLED,Kontrast
+_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность,Kontrast,Kontrast
 _L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo,Háttérvilágítás,Beleuchtung,Rétroéclairage,Achtergrondverlichting,Luz de Fundo,バックライト,Brilho,Luminosità,Подсветка,Podświetlenie,Bakgrundsljus
 _L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Brillo de fondo,Háttérvilágítás Fényerő,Helligkeit,Luminosité du Rétroéclairage,Helderheid Achtergrondverlichting,Brilho da Luz de Fundo,バックライトの明るさ,Brilho do Ecrã,Luminosità schermo,Яркость подсветки,Jasność Podświetlenia,Ljusstyrka
 _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Menü Animáció,Menü Animation,Animation du Menu,Menu-Animatie,Animação do Menu,メニュー アニメーション,Animação do Menu,Animazione menu,Анимация меню,Animowane Menu,Menyanimation
-_L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO,LiPO Akkumulátor,LiPO Batterie,Batterie LiPO,LiPO-Batterij,Bateria LiPO,LiPOバッテリー,Bateria LiPO,Batteria LiPO,Батарея LiPO,Bateria LiPO,LiPO-batteri
+_L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO,LiPO Akkumulátor,LiPO Batterie,Batterie LiPO,LiPO-Batterij,Bateria LiPO,LiPOバッテリー,Bateria LiPO,Batteria LiPO,Батарея LiPo,Bateria LiPO,LiPO-batteri
 _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Estad. Mem.,Használt Memória,Speicheranzeige,Mémoire Utilisée,Gebruikt Geheugen,Memória Usada,使用メモリ,Memoria Usada,Memoria usata,Статус памяти,Wskaźnik Pamięci,Använt minne
 _L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Gyors Ébresztés,Schnelles Aufwachen,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動,Suspender,Risveglio rapido,Гибернация,Szybkie Wybudzanie,Snabb väckning
 _L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Standby nach,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Suspender em:,Timeout di sospensione,Таймаут сна,Opóźnienie Uśpienia,Timeout för viloläge
+_L_APP_SET_NO_SLEEP,No Sleep While Emulating,模拟时不休眠,模擬時不休眠,No dormir al emular,Nem alszik emuláció közben,Kein Standby bei Emulation,Pas de veille pendant l'émulation,Niet slapen tijdens emulatie,Não dormir ao emular,エミュレート中はスリープしない,Não dormir ao emular,Nessuna sospensione in emulazione,Не спать при эмуляции,Nie usypiaj podczas emulacji,Ingen vila vid emulering
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Nyelv,Sprache,Langue,Taal,Idioma,言語,Idioma,Lingua,Язык,Język,Språk
-_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,Dormir,,,,,,,,,В режим сна,Uśpij Teraz,Viloläge
+_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,Dormir,,,,,,,,,Перейти в режим сна,Uśpij Teraz,Viloläge
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Firmware Frissítés,Firmw. Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新,Atualizações,Aggiornamento firmware,Обновление ПО,Aktualizacja Oprogramowania,Firmware-uppdatering
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動,Reiniciar,Riavvio del sistema,Перезагрузка,Restart Systemu,Starta om
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す,Repor Definições,Ripristina impostazioni predefinite,Сброс настроек,Przywróć Domyślne Ustawienia,Fabriksinställningar
@@ -146,7 +147,7 @@ _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignaci
 _L_APP_AMIIDB_SORT_FIELD,Sort Field,排序字段,排序欄位,Campo de ordenación,Rendezési mező,Sortierfeld,Champ de tri,Sorteerveld,Campo de Ordenação,並べ替えフィールド,Campo de Ordenação,Campo di ordinamento,Сортировка,Pole sortowania,Sorteringsfält
 _L_APP_AMIIDB_SORT_DEFAULT,Default,默认,預設,Por defecto,Alapértelmezett,Standard,Par défaut,Standaard,Padrão,デフォルト,Padrão,Predefinito,По умолчанию,Domyślne,Standard
 _L_APP_AMIIDB_SORT_NAME,Name,名字,名稱,Nombre,Név,Name,Nom,Naam,Nome,名前,Nome,Nome,По алфавиту,Nazwa,Namn
-_L_APP_AMIIDB_NOT_SUPPORT_V3,Not support for v3\namiibo!,暂不支持V3 amiibo!,暫不支持V3 amiibo!,,,,,,,,,,Amiibo версии 3\n не поддерживаются!,,
+_L_APP_AMIIDB_NOT_SUPPORT_V3,Not support for v3\namiibo!,暂不支持V3 amiibo!,暫不支持V3 amiibo!,,,,,,,,,,Поддержка Amiibo V3\n не реализована!,,
 _L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emular Etiqueta RFID,Kártya Emulátor,Karten Emulator,Emulateur de Carte,Kaart Emulator,Emulador de Cartão,カードエミュレータ,Emular Tag RFID,Emula tag RFID,Эмулятор карт,Emulator Kart,Kort-emulator
 _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal,Normál,Normal,Normal,Normaal,Normal,通常,Normal,Normale,Разрешена,Normalny,Normal
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar,Tagadni,Verweigern,Refuser,Weigeren,Negar,拒否,Cancelar,Nega,Запрещена,Odmów,Neka

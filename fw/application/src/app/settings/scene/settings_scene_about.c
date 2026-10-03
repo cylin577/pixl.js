@@ -23,7 +23,7 @@ void settings_scene_about_on_enter(void *user_data) {
 
     mui_list_view_add_item(app->p_list_view, ICON_FILE, _T(APP_SET_ABOUT_OPEN_SOURCE_PROJECT), NULL_USER_DATA);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, _T(APP_SET_ABOUT_LGPL_LICENSE), NULL_USER_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_FILE, "github.com/solosky/pixl.js", NULL_USER_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "github.com/cylin577/pixl.js", NULL_USER_DATA);
     mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_BACK), NULL_USER_DATA);
 
     mui_list_view_set_selected_cb(app->p_list_view, settings_scene_about_list_view_on_selected);

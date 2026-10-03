@@ -14,6 +14,8 @@
 #include "mui_icons.h"
 #include "tag_helper.h"
 
+static void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app);
+
 typedef enum {
     CHAMELEON_MENU_CUSTOM,
     CHAMELEON_MENU_LOAD_BLOCK0,
@@ -21,6 +23,7 @@ typedef enum {
     CHAMELEON_MENU_UID,
     CHAMELEON_MENU_SAK,
     CHAMELEON_MENU_ATQA,
+    CHAMELEON_MENU_ATS,
     CHAMELEON_MENU_GEN1A,
     CHAMELEON_MENU_GEN2,
     CHAMELEON_MENU_GEN_UID,
@@ -78,6 +81,13 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
         }
     } break;
 
+    case CHAMELEON_MENU_ATS: {
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            app->id_edit_type = APP_CHAMELEON_ID_EDIT_TYPE_ATS;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_EDIT);
+        }
+    } break;
+
     case CHAMELEON_MENU_GEN_UID: {
 
         tag_helper_generate_uid();
@@ -107,7 +117,7 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
     }
 }
 
-void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
+static void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     char buff[64];
 
     uint16_t focus = mui_list_view_get_focus(app->p_list_view);
@@ -142,6 +152,15 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
 
     sprintf(buff, "[%02X %02X]", coll_res->atqa[1], coll_res->atqa[0]);
     mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATQA", buff, CHAMELEON_MENU_ATQA);
+
+    if (coll_res->ats->length > 0) {
+        sprintf(buff, "[%d B]", coll_res->ats->length);
+    } else if (coll_res->sak[0] & 0x20) {
+        sprintf(buff, "[auto]");
+    } else {
+        sprintf(buff, "[-]");
+    }
+    mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATS", buff, CHAMELEON_MENU_ATS);
 
     if (tag_group == TAG_GROUP_MIFARE) {
         mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GEN1A_MODE),

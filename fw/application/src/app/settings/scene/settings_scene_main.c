@@ -18,6 +18,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_LANGUAGE,
     SETTINGS_MAIN_MENU_SHOW_MEM_USAGE,
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
+    SETTINGS_MAIN_MENU_NO_SLEEP,
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_GO_SLEEP,
     SETTINGS_MAIN_MENU_DFU,
@@ -112,6 +113,12 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_ANIM_ENABLED:
         p_settings->anim_enabled = !p_settings->anim_enabled;
+        settings_scene_main_reload(app);
+        break;
+
+    case SETTINGS_MAIN_MENU_NO_SLEEP:
+        p_settings->no_sleep_mode = !p_settings->no_sleep_mode;
+        nrf_pwr_mgmt_set_timeout(p_settings->no_sleep_mode ? 0 : p_settings->sleep_timeout_sec);
         settings_scene_main_reload(app);
         break;
 
@@ -211,6 +218,9 @@ static void settings_scene_main_reload(void *user_data) {
     }
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_SLEEP_TIMEOUT), txt,
                                (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_NO_SLEEP),
+                               p_settings->no_sleep_mode ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_NO_SLEEP);
     mui_list_view_add_item(app->p_list_view, 0xe1d0, _T(APP_SET_APP_MGMT), (void *)SETTINGS_MAIN_MENU_APP_MANAGEMENT);
     mui_list_view_add_item(app->p_list_view, 0xe1c9, _T(APP_SET_GO_SLEEP), (void *)SETTINGS_MAIN_MENU_GO_SLEEP);
     mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
