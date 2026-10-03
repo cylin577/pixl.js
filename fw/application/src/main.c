@@ -87,6 +87,7 @@
 #include "amiibo_helper.h"
 
 #include "mini_app_launcher.h"
+#include "mini_app_defines.h"
 #include "mui_include.h"
 
 #include "hal_spi_bus.h"
