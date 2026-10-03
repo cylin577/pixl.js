@@ -27,6 +27,7 @@ const char * const lang_sv_SE[_L_COUNT] = {
     [_L_APP_SET_SHOW_MEM_USAGE] = "Använt minne",
     [_L_APP_SET_HIBERNATE] = "Snabb väckning",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Timeout för viloläge",
+    [_L_APP_SET_NO_SLEEP] = "Ingen vila vid emulering",
     [_L_APP_SET_LANGUAGE] = "Språk",
     [_L_APP_SET_GO_SLEEP] = "Viloläge",
     [_L_APP_SET_DFU] = "Firmware-uppdatering",

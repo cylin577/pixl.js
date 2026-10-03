@@ -302,6 +302,14 @@ int main(void) {
         app_sched_execute();
         mui_tick(p_mui);
         NRF_LOG_FLUSH();
+
+        // The device keeps emulating a NFC tag in all modes (amiibo/amiibolink/chameleon),
+        // and BLE transfer may be active at any time. When no_sleep_mode is enabled,
+        // don't enter sleep mode automatically. Manual sleep is not affected.
+        if (p_settings->no_sleep_mode) {
+            nrf_pwr_mgmt_set_timeout(0);
+        }
+
         nrf_pwr_mgmt_run();
     }
 }

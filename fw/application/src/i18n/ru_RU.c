@@ -27,6 +27,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_SET_SHOW_MEM_USAGE] = "Статус памяти",
     [_L_APP_SET_HIBERNATE] = "Гибернация",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Таймаут сна",
+    [_L_APP_SET_NO_SLEEP] = "Не спать при эмуляции",
     [_L_APP_SET_LANGUAGE] = "Язык",
     [_L_APP_SET_GO_SLEEP] = "Перейти в режим сна",
     [_L_APP_SET_DFU] = "Обновление ПО",

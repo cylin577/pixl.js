@@ -27,6 +27,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_SHOW_MEM_USAGE] = "使用メモリ",
     [_L_APP_SET_HIBERNATE] = "高速起動",
     [_L_APP_SET_SLEEP_TIMEOUT] = "スリープタイムアウト",
+    [_L_APP_SET_NO_SLEEP] = "エミュレート中はスリープしない",
     [_L_APP_SET_LANGUAGE] = "言語",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "ファームウェア更新",

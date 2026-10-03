@@ -27,6 +27,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_SET_SHOW_MEM_USAGE] = "Mémoire Utilisée",
     [_L_APP_SET_HIBERNATE] = "Réveil Rapide",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Délai de mise en veille",
+    [_L_APP_SET_NO_SLEEP] = "Pas de veille pendant l'émulation",
     [_L_APP_SET_LANGUAGE] = "Langue",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Mise à Jour du Micrologiciel",

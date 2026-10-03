@@ -36,6 +36,7 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                             .amiidb_sort_column = 0,
                                             .chameleon_slot_num = 8,
                                             .amiibolink_mode = 0, // 0 = not set, use default (manual)
+                                            .no_sleep_mode = false,
                                         };
 
 settings_data_t m_settings_data = {0};
@@ -84,6 +85,8 @@ static void validate_settings() {
         m_settings_data.amiibolink_mode != BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
         m_settings_data.amiibolink_mode = 0; // Reset to "not set" if invalid
     }
+
+    BOOL_VALIDATE(m_settings_data.no_sleep_mode, 0);
 }
 
 int32_t settings_init() {
