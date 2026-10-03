@@ -28,6 +28,7 @@ void ble_init(void);
 void ble_device_mode_prepare(ble_device_mode_t mode);
 void ble_adv_start(void);
 void ble_disable();
+bool ble_is_connected(void);
 
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler);

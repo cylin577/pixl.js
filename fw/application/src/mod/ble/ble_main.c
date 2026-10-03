@@ -581,6 +581,10 @@ void ble_disable() {
     }
 }
 
+bool ble_is_connected(void) {
+    return m_conn_handle != BLE_CONN_HANDLE_INVALID;
+}
+
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
     m_nus_rx_data_handler = rx_data_handler;
     m_nus_tx_ready_handler = tx_ready_handler;

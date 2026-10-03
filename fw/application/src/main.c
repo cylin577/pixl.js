@@ -108,6 +108,16 @@
 
 int8_t g_usb_led_marquee_enable = 0; /** dummy for chameleon */
 
+static bool is_emulating_app(mini_app_launcher_t *p_launcher) {
+    mini_app_inst_t *p_inst = p_launcher->p_main_app_inst;
+    if (!p_inst) {
+        return false;
+    }
+    uint32_t id = p_inst->p_app->id;
+    return id == MINI_APP_ID_AMIIBO || id == MINI_APP_ID_AMIIBOLINK ||
+           id == MINI_APP_ID_CHAMELEON || id == MINI_APP_ID_BLE;
+}
+
 // #define SPI_FLASH
 
 /**
@@ -305,9 +315,12 @@ int main(void) {
 
         // The device keeps emulating a NFC tag in all modes (amiibo/amiibolink/chameleon),
         // and BLE transfer may be active at any time. When no_sleep_mode is enabled,
-        // don't enter sleep mode automatically. Manual sleep is not affected.
-        if (p_settings->no_sleep_mode) {
-            nrf_pwr_mgmt_set_timeout(0);
+        // keep the standby timeout armed but reset the activity counter while
+        // emulating or transferring over BLE, so the timeout still applies
+        // afterwards. Manual sleep is not affected.
+        if (p_settings->no_sleep_mode &&
+            (is_emulating_app(p_launcher) || ble_is_connected())) {
+            nrf_pwr_mgmt_feed();
         }
 
         nrf_pwr_mgmt_run();
