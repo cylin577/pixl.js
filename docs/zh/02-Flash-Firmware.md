@@ -76,8 +76,9 @@ openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg
 - 左 x N
 - 中
 
-如果固件版本小于 2.11.x，按左 x 4。
-如果固件版本大于 2.11.x，按左 x 5。
+N 的具体次数随固件版本而异（具体次数无法从代码中确认，需实际尝试）。
+
+如果固件版本小于 2.11.x，按左 x N。
 
 此时设备已进入 DFU 模式，使用 [nRF Connect APP](#nrf-connect-app) 或[直接进入固件更新页面](#直接进入固件更新页面)任一方法升级固件即可。
 
