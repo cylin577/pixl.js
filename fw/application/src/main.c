@@ -115,8 +115,9 @@ static bool is_emulating_app(mini_app_launcher_t *p_launcher) {
         return false;
     }
     uint32_t id = p_inst->p_app->id;
-    return id == MINI_APP_ID_AMIIBO || id == MINI_APP_ID_AMIIBOLINK ||
-           id == MINI_APP_ID_CHAMELEON || id == MINI_APP_ID_BLE;
+    return id == MINI_APP_ID_AMIIBO || id == MINI_APP_ID_AMIIDB ||
+           id == MINI_APP_ID_AMIIBOLINK || id == MINI_APP_ID_CHAMELEON ||
+           id == MINI_APP_ID_BLE;
 }
 
 // #define SPI_FLASH
