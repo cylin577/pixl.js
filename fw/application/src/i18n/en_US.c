@@ -28,6 +28,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Fast Wakeup",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Sleep Timeout",
     [_L_APP_SET_NO_SLEEP] = "No Sleep While Emulating",
+    [_L_APP_SET_FLIP_DISPLAY] = "Flip Display",
     [_L_APP_SET_LANGUAGE] = "Language",
     [_L_APP_SET_GO_SLEEP] = "Go Sleep",
     [_L_APP_SET_DFU] = "Firmware Update",

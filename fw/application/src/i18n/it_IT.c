@@ -28,6 +28,7 @@ const char * const lang_it_IT[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Risveglio rapido",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Timeout di sospensione",
     [_L_APP_SET_NO_SLEEP] = "Nessuna sospensione in emulazione",
+    [_L_APP_SET_FLIP_DISPLAY] = "Ruota schermo",
     [_L_APP_SET_LANGUAGE] = "Lingua",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Aggiornamento firmware",

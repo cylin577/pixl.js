@@ -37,6 +37,7 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                             .chameleon_slot_num = 8,
                                             .amiibolink_mode = 0, // 0 = not set, use default (manual)
                                             .no_sleep_mode = false,
+                                            .flip_display = false,
                                         };
 
 settings_data_t m_settings_data = {0};
@@ -87,6 +88,7 @@ static void validate_settings() {
     }
 
     BOOL_VALIDATE(m_settings_data.no_sleep_mode, 0);
+    BOOL_VALIDATE(m_settings_data.flip_display, 0);
 }
 
 int32_t settings_init() {

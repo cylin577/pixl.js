@@ -28,6 +28,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "快速喚醒",
     [_L_APP_SET_SLEEP_TIMEOUT] = "休眠時間",
     [_L_APP_SET_NO_SLEEP] = "模擬時不休眠",
+    [_L_APP_SET_FLIP_DISPLAY] = "螢幕翻轉",
     [_L_APP_SET_LANGUAGE] = "系統語言",
     [_L_APP_SET_GO_SLEEP] = "進入休眠",
     [_L_APP_SET_DFU] = "軟體升級",

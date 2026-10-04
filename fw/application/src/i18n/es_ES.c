@@ -28,6 +28,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Hibernar",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Dormir en:",
     [_L_APP_SET_NO_SLEEP] = "No dormir al emular",
+    [_L_APP_SET_FLIP_DISPLAY] = "Girar pantalla",
     [_L_APP_SET_LANGUAGE] = "Idioma",
     [_L_APP_SET_GO_SLEEP] = "Dormir",
     [_L_APP_SET_DFU] = "Actualizar firmware",

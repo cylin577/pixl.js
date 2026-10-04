@@ -192,7 +192,8 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     nrf_gpio_cfg_output(LCD_BL_PIN);
     nrf_gpio_pin_clear(LCD_BL_PIN);
 
-    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, settings_get_data()->flip_display ? U8G2_R2 : U8G2_R0,
+                                     u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
 
     u8g2_InitDisplay(p_u8g2);
 
@@ -205,7 +206,8 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 #endif
 
 #ifdef OLED_SCREEN
-    u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, settings_get_data()->flip_display ? U8G2_R2 : U8G2_R0,
+                                      u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
     u8g2_InitDisplay(p_u8g2);
 
     settings_data_t *p_settings = settings_get_data();
@@ -256,6 +258,11 @@ void mui_u8g2_set_contrast_level(uint8_t value) {
     }
 #endif
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
+}
+
+void mui_u8g2_set_flip_display(bool flip) {
+    mui_t *p_mui = mui();
+    u8g2_SetDisplayRotation(&p_mui->u8g2, flip ? U8G2_R2 : U8G2_R0);
 }
 
 const spi_device_t *mui_u8g2_get_spi_device() { return &m_dev; }
