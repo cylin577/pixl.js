@@ -283,8 +283,9 @@ Le carte della serie NTAG sono comunemente utilizzate per l'identificazione del 
 Attualmente, un totale di 8 carte sono supportate, con l'opzione per personalizzare il numero di carte in futuro.
 
 > Nota:<br/>
-> La funzione di emulazione della serie NTAG è ancora in fase di test, e la funzionalità non è ancora completa. Non emula completamente > le caratteristiche di NTAG125. <br/>
-> Continueranno ulteriori miglioramenti a questa parte della funzionalità.
+> Le carte NTAG vengono create nello stato di consegna NXP: bit di blocco statici azzerati, Capability Container NDEF valido e TLV NDEF vuoto. Una carta appena creata è scrivibile da lettori NFC e telefoni, proprio come una nuova NTAG vuota.<br/>
+> I dati scritti via NFC vengono mantenuti nello slot della carta e salvati in flash quando si esce dall'emulatore di carte o il dispositivo va in standby.<br/>
+> Una carta creata da firmware precedente potrebbe rifiutare le scritture perché i suoi bit di blocco sono già impostati; usa `Dati` -> `Inizializza` nel menu della carta per ripristinarla allo stato di consegna scrivibile.
 
 L'emulazione può essere attivata solo in questa interfaccia, e sarà disattivata se si lascia questa interfaccia.
 

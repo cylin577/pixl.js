@@ -288,8 +288,9 @@ NTAG series cards are commonly used for device identification. Supported NTAG ca
 Currently, a total of 8 cards are supported, with the option for customizing the number of cards in the future.
 
 > Note:<br/>
-> The emulation function of the NTAG series is still in testing, and the functionality is not yet complete. It does not fully emulate > the features of NTAG125. <br/>
-> Further improvements to this part of the functionality will continue.
+> NTAG cards are created in the NXP factory delivery state: static lock bits cleared, a valid NDEF Capability Container and an empty NDEF TLV. A freshly created card is writable by NFC readers and phones, just like a new blank NTAG.<br/>
+> Data written over NFC is kept in the card slot and stored to flash when you leave the card emulator or the device goes to sleep.<br/>
+> A card created by older firmware may reject writes because its lock bits are already set; use `Card Data` -> `Factory` in the card menu to reset it to the writable delivery state.
 
 Emulation can only be activated in this interface, and it will be deactivated if you leave this interface.
 

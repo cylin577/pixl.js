@@ -23,7 +23,7 @@ static void chameleon_scene_menu_card_type_factory_cb(mui_msg_box_event_t event,
     app_chameleon_t *app = p_msg_box->user_data;
     if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
         uint8_t slot = tag_emulation_get_slot();
-        tag_emulation_factory_data(slot, tag_helper_get_active_tag_type());
+        tag_helper_factory_data(slot);
         mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS));
     }
     mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
