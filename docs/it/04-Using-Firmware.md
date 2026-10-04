@@ -470,7 +470,7 @@ Questa applicazione permette di configurare le impostazioni di funzionamento del
 
 |   |
 | ------------ |
-| Versione []<BR>Lingua []<BR>Memoria Auto []<BR>Retroilluminazione / Contrasto OLED []<BR>Animazione Menu []<BR>Batteria LiPO []<BR>Memoria Utilizzata []<BR>Ripresa Veloce []<BR>Timer Sleep []<BR>Aggiornamento Firmware<BR>Riavvio Sistema |
+| Versione []<BR>Lingua []<BR>Memoria Auto []<BR>Retroilluminazione / Contrasto OLED []<BR>Animazione Menu []<BR>Batteria LiPO []<BR>Memoria Utilizzata []<BR>Ripresa Veloce []<BR>Display Capovolto []<BR>Scambia Pulsanti []<BR>Timer Sleep []<BR>Aggiornamento Firmware<BR>Riavvio Sistema |
 |   |
 
 ## Versione
@@ -498,6 +498,10 @@ Se abiliti l'opzione LiPO, il dispositivo utilizzerà il livello di tensione LiP
 Mostra la percentuale di memoria di archiviazione utilizzata in fondo allo schermo
 ## Risveglio Rapido
 Abilita l'ibernazione del dispositivo, permettendo una risposta più veloce alla lettura dell'amiibo corrente da parte di un gioco, e riprende all'applicazione aperta al momento del sonno, quando disabilitato la ripresa dopo il sonno richiede 1 secondo in più e il dispositivo ripristina al Menu Principale.
+## Display Capovolto
+Ruota l'intera interfaccia utente di 180 gradi. Utile quando tieni il dispositivo ruotato, ad esempio per usarlo con la mano destra. Influisce solo sullo schermo; abbinalo a **Scambia Pulsanti** se vuoi che anche la navigazione sinistra/destra segua la vista ruotata.
+## Scambia Pulsanti
+Scambia i pulsanti sinistro e destro. Abilitalo quando il dispositivo è tenuto ruotato, o quando preferisci semplicemente una navigazione specchiata.
 ## Timer Sleep
 Imposta il tempo in cui il dispositivo va in sleep dopo l'ultimo input dell'utente o la lettura dell'amiibo.
 ## Aggiornamento Firmware

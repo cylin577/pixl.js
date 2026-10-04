@@ -1,6 +1,8 @@
 #ifndef MUI_U8G2_H
 #define MUI_U8G2_H
 
+#include <stdbool.h>
+
 #include "mui_defines.h"
 #include "hal_spi_bus.h"
 #include "u8g2.h"
@@ -16,6 +18,7 @@ int8_t mui_u8g2_get_backlight_level(void);
 void mui_u8g2_set_lcd_default_contrast_level(void);
 
 void mui_u8g2_set_contrast_level(uint8_t value);
+void mui_u8g2_set_flip_display(bool flip);
 
 const spi_device_t* mui_u8g2_get_spi_device();
 

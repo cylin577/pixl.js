@@ -6,6 +6,8 @@
 #include "bsp_btn.h"
 
 #include "cache.h"
+#include "settings.h"
+#include "boards.h"
 
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
     uint32_t arg = p_input_event->type;
@@ -17,6 +19,12 @@ static void mui_input_post_event(mui_input_event_t *p_input_event) {
 
 
 void mui_input_on_bsp_btn_event(uint8_t btn, bsp_btn_event_t evt) {
+    // When enabled, mirror the left/right buttons (e.g. to match a device
+    // held rotated 180 degrees).
+    if (settings_get_data()->swap_buttons) {
+        btn = (BUTTONS_NUMBER - 1) - btn;
+    }
+
     switch (evt) {
 
     case BSP_BTN_EVENT_PRESSED: {

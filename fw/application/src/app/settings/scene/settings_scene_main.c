@@ -20,6 +20,8 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
     SETTINGS_MAIN_MENU_NO_SLEEP,
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
+    SETTINGS_MAIN_MENU_FLIP_DISPLAY,
+    SETTINGS_MAIN_MENU_SWAP_BUTTONS,
     SETTINGS_MAIN_MENU_GO_SLEEP,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
@@ -121,6 +123,17 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         settings_scene_main_reload(app);
         break;
 
+    case SETTINGS_MAIN_MENU_FLIP_DISPLAY:
+        p_settings->flip_display = !p_settings->flip_display;
+        mui_u8g2_set_flip_display(p_settings->flip_display);
+        settings_scene_main_reload(app);
+        break;
+
+    case SETTINGS_MAIN_MENU_SWAP_BUTTONS:
+        p_settings->swap_buttons = !p_settings->swap_buttons;
+        settings_scene_main_reload(app);
+        break;
+
     case SETTINGS_MAIN_MENU_APP_MANAGEMENT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_APP_MANAGEMENT);
         break;
@@ -207,6 +220,14 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe232, _T(APP_SET_HIBERNATE),
                                p_settings->hibernate_enabled ? _T(ON_F) : _T(OFF_F),
                                (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
+
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_FLIP_DISPLAY),
+                               p_settings->flip_display ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_FLIP_DISPLAY);
+
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_SWAP_BUTTONS),
+                               p_settings->swap_buttons ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_SWAP_BUTTONS);
 
     if (nrf_pwr_mgmt_get_timeout() == 0) {
         snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));
