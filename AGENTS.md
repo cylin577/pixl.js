@@ -31,6 +31,16 @@ BLE protocols documented in `docs/en/05+1-ble_protocol.md` (file transfer) and `
 
 Requires nRF52 SDK via env var `NRF52_SDK_ROOT` (Makefile: `SDK_ROOT := $(NRF52_SDK_ROOT)`); nothing builds without it. Easiest path is the preconfigured Docker image `solosky/nrf52-sdk:latest` (`fw/docker/Dockerfile`).
 
+**On ARM/aarch64 hosts, build via GitHub Actions instead of Docker.** The `solosky/nrf52-sdk` image is x86-64 only, so Docker runs it under qemu emulation — a full `make all` takes 30+ minutes and `make clean` rebuilds are worse. Push to the repo and let CI build:
+
+```
+gh workflow run pixl.js-fw.yml --ref main    # manual build of main
+gh run watch                                 # then fetch artifacts:
+gh run download <run-id> -n pixljs_fw_OLED -D out/
+```
+
+Pushes to `develop`/tags and PRs to `develop` also trigger the workflow automatically; a `main` push does not, so use `workflow_dispatch` after committing to `main`. Local Docker builds are fine on x86-64 machines (also pass `git config --global --add safe.directory "*"` inside the container — the mounted repo trips git's ownership check).
+
 ```
 git submodule update --init --recursive   # required: fw/components/* are submodules
 cd fw && make all BOARD=OLED RELEASE=1    # or BOARD=LCD
