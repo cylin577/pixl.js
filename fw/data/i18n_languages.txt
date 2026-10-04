@@ -1,0 +1,7 @@
+# Languages compiled into the firmware, one per line: <csv_column_name>,<native description>
+# Must match column names in i18n.csv. Keep the order stable: it defines the
+# LANGUAGE_* enum values and therefore how the saved language setting is decoded.
+# Add/remove a language here and run `make gen` (or `python3 scripts/i18n_gen.py`).
+# Only these languages are generated/compiled, keeping flash usage small.
+zh_Hans,简体中文
+en_US,English

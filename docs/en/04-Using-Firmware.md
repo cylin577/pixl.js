@@ -518,7 +518,7 @@ This submenu shows the version details of the firmware.
 - Target
 - Dirty
 ## Language
-You can change the language displayed on the device
+You can change the language displayed on the device. This firmware ships with English and Simplified Chinese; the set of compiled languages is configured in `fw/data/i18n_languages.txt`, so additional languages from `fw/data/i18n.csv` can be enabled by adding them there and rebuilding.
 ## External Storage
 You could view the external storage status and usage here, enter this menu could view the external storage usage details and perform format operation.
 ## Backlight / Contrast

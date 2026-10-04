@@ -482,7 +482,7 @@ Questo sottomenu mostra i dettagli della versione del firmware.
 - Target
 - Dirty
 ## Lingua
-Puoi cambiare la lingua visualizzata sul dispositivo
+Puoi cambiare la lingua visualizzata sul dispositivo. Questo firmware include l'inglese e il cinese semplificato; l'insieme delle lingue compilate è configurato in `fw/data/i18n_languages.txt`, quindi puoi abilitare altre lingue presenti in `fw/data/i18n.csv` aggiungendole lì e ricompilando.
 ## Memoria Auto
 Attivando questa impostazione le memorie locali del dispositivo sono nascoste alla radice dell'applicazione Emulatore Amiibo, se questa impostazione è OFF l'oggetto «Flash esterno» viene mostrato alla radice dell'applicazione Emulatore Amiibo.
 ## Retroilluminazione / Contrasto OLED
