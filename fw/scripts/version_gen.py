@@ -34,16 +34,20 @@ class GitVersion:
 
         branch_num = self._exec_git("rev-list --count HEAD") or "n/a"
 
-        ref_type = os.environ.get("GITHUB_REF_TYPE", None)
-        if ref_type == "tag":
-            version = os.environ.get("GITHUB_REF_NAME", None)
-        elif ref_type == "branch":
-            version = "b" + os.environ.get("GITHUB_RUN_NUMBER", None)
-        else:
-            try:
-                version = self._exec_git("describe --tags --abbrev=0 --exact-match")
-            except subprocess.CalledProcessError:
-                version = "unknown"
+        # APP_VERSION from the build environment (set by the Makefile) is the
+        # single source of truth for the version string when provided.
+        version = os.environ.get("APP_VERSION", None)
+        if version is None:
+            ref_type = os.environ.get("GITHUB_REF_TYPE", None)
+            if ref_type == "tag":
+                version = os.environ.get("GITHUB_REF_NAME", None)
+            elif ref_type == "branch":
+                version = "b" + os.environ.get("GITHUB_RUN_NUMBER", None)
+            else:
+                try:
+                    version = self._exec_git("describe --tags --abbrev=0 --exact-match")
+                except subprocess.CalledProcessError:
+                    version = "unknown"
 
         return {
             "GIT_COMMIT": commit,

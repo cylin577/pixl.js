@@ -8,7 +8,32 @@ COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
-APP_VERSION ?= 1
+# Single source of truth for the firmware version string (passed to version_gen.py).
+# CI tag build (release): tag name, e.g. v1.0.0
+# CI branch build / workflow_dispatch: b<run number>, e.g. b8
+# Local build: $FW_VERSION env, else <branch>_<commit>
+GIT_DESCRIBE := $(shell git -C .. describe --tags --exact-match 2>/dev/null)
+ifeq ($(origin APP_VERSION),undefined)
+ifneq ($(strip $(GITHUB_REF_TYPE)),)
+ifeq ($(GITHUB_REF_TYPE),tag)
+APP_VERSION := $(GITHUB_REF_NAME)
+else
+APP_VERSION := b$(GITHUB_RUN_NUMBER)
+endif
+else
+ifneq ($(strip $(FW_VERSION)),)
+APP_VERSION := $(FW_VERSION)
+else
+ifneq ($(strip $(GIT_DESCRIBE)),)
+APP_VERSION := $(GIT_DESCRIBE)
+else
+APP_VERSION := $(shell git -C .. rev-parse --abbrev-ref HEAD)_$(shell git -C .. rev-parse --short HEAD)
+endif
+endif
+endif
+endif
+# Numeric version for DFU/bootloader validation (nrfutil requires an integer).
+APP_VERSION_NUM := $(if $(GITHUB_RUN_NUMBER),$(GITHUB_RUN_NUMBER),1)
 RELEASE ?= 1
 BOARD ?= OLED
 FW_TOP_SYMBOLS ?= 20
@@ -743,14 +768,14 @@ sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
 
 version:
-	@cd ../ && python3 scripts/version_gen.py
+	@cd ../ && APP_VERSION=$(APP_VERSION) python3 scripts/version_gen.py
 	@echo build: BOARD=$(BOARD) RELEASE=$(RELEASE) APP_VERSION=$(APP_VERSION)
 
 settingsgen:
-	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
+	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
 
 ota: 
-	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
