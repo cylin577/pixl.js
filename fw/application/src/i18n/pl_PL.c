@@ -29,6 +29,7 @@ const char * const lang_pl_PL[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "Opóźnienie Uśpienia",
     [_L_APP_SET_NO_SLEEP] = "Nie usypiaj podczas emulacji",
     [_L_APP_SET_FLIP_DISPLAY] = "",
+    [_L_APP_SET_SWAP_BUTTONS] = "",
     [_L_APP_SET_LANGUAGE] = "Język",
     [_L_APP_SET_GO_SLEEP] = "Uśpij Teraz",
     [_L_APP_SET_DFU] = "Aktualizacja Oprogramowania",

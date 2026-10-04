@@ -29,6 +29,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "スリープタイムアウト",
     [_L_APP_SET_NO_SLEEP] = "エミュレート中はスリープしない",
     [_L_APP_SET_FLIP_DISPLAY] = "",
+    [_L_APP_SET_SWAP_BUTTONS] = "",
     [_L_APP_SET_LANGUAGE] = "言語",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "ファームウェア更新",

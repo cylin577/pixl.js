@@ -35,6 +35,7 @@ typedef struct {
     ble_amiibolink_mode_t amiibolink_mode; // user's preferred AmiiboLink mode (0 = not set, use default)
     bool no_sleep_mode; // don't enter sleep mode while emulating a card (all modes) or in BLE transfer mode
     bool flip_display;  // rotate the UI 180 degrees (for right-handed use)
+    bool swap_buttons;  // swap left/right buttons (to match a flipped/rotated device)
 } settings_data_t;
 
 int32_t settings_init();

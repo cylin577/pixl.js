@@ -29,6 +29,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "Time-out Slaapstand",
     [_L_APP_SET_NO_SLEEP] = "Niet slapen tijdens emulatie",
     [_L_APP_SET_FLIP_DISPLAY] = "",
+    [_L_APP_SET_SWAP_BUTTONS] = "",
     [_L_APP_SET_LANGUAGE] = "Taal",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmware Bijwerken",

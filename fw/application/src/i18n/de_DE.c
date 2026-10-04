@@ -29,6 +29,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "Standby nach",
     [_L_APP_SET_NO_SLEEP] = "Kein Standby bei Emulation",
     [_L_APP_SET_FLIP_DISPLAY] = "",
+    [_L_APP_SET_SWAP_BUTTONS] = "",
     [_L_APP_SET_LANGUAGE] = "Sprache",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmw. Aktualisierung",

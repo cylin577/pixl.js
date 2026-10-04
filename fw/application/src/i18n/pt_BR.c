@@ -29,6 +29,7 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "Tempo Limite de Suspensão",
     [_L_APP_SET_NO_SLEEP] = "Não dormir ao emular",
     [_L_APP_SET_FLIP_DISPLAY] = "",
+    [_L_APP_SET_SWAP_BUTTONS] = "",
     [_L_APP_SET_LANGUAGE] = "Idioma",
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Atualização de Firmware",

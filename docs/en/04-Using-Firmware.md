@@ -506,7 +506,7 @@ This application allows to configure the device working settings, the applicatio
 
 |   |
 | ------------ |
-| Version []<BR>Language []<BR>Auto Storage []<BR>Backlight / OLED Contrast []<BR>Menu Animation []<BR>LiPO Battery []<BR>Memory Used []<BR>Fast Resume []<BR>Sleep Timer []<BR>Firmware Update<BR>System Reboot |
+| Version []<BR>Language []<BR>Auto Storage []<BR>Backlight / OLED Contrast []<BR>Menu Animation []<BR>LiPO Battery []<BR>Memory Used []<BR>Fast Resume []<BR>Flip Display []<BR>Swap Buttons []<BR>Sleep Timer []<BR>Firmware Update<BR>System Reboot |
 |   |
 
 ## Version
@@ -535,6 +535,10 @@ If you enable LiPO option, the device will use LiPO voltage level to display the
 Shows the % used storage memory at the bottom of the screen
 ## Fast Wakeup
 Enables hibernation of device, allowing a quicker response of the reading of the current amiibo by a game, and resume to the application open at the moment of sleep, when disabled the resume after sleep takes 1 second more and the device restore to the Main Menu.
+## Flip Display
+Rotates the whole user interface 180 degrees. Useful when you hold the device rotated, for example to use it right-handed. This only affects the display; combine it with **Swap Buttons** if you also want left/right navigation to follow the rotated view.
+## Swap Buttons
+Swaps the left and right buttons. Enable this when the device is held rotated, or when you simply prefer mirrored navigation.
 ## Sleep Timeout
 Set the time when the device go to sleep after the last user input or amiibo read.
 ## App Management
