@@ -54,7 +54,7 @@ cd fw && make all BOARD=OLED RELEASE=1    # or BOARD=LCD
 `fw/application/Makefile` invokes `fw/scripts/*.py` during build (Python 3, deps in `fw/scripts/requirements.txt`):
 - `amiibo_db_gen.py` — Amiibo database → generated C sources. Source data: `fw/data/amiidb_{amiibo,game,link}.csv` (character/game/series names, EN+ZH).
 - `i18n_gen.py` — translations → `fw/application/src/i18n/` (`*.c` per locale, e.g. `zh_Hans.c`) plus generated `string_id.h` / `language_list.h`; only the languages listed in `fw/data/i18n_languages.txt` are compiled (currently EN + ZH). Edit source translation files (`fw/data/i18n.csv`) and `i18n_languages.txt`, not generated output.
-- `font_data_gen.py` — CJK/font data; runs `bdfconv` binaries shipped in `fw/scripts/` (per-OS: `bdfconv.exe`, `bdfconv_linux`, `bdfconv_macos_universal`) over `fw/data/*.bdf` + `chinese3.txt`/`gb2312a.txt`.
+- `font_data_gen.py` — CJK/font data; glyphs = every non-ASCII char found in `application/src/i18n/` (`*.c` and `*.h` — `language_list.h` holds the language-menu descriptions) + `application/src/amiidb/` + `fw/data/chinese3.txt`; runs `bdfconv` binaries shipped in `fw/scripts/` (per-OS: `bdfconv.exe`, `bdfconv_linux`, `bdfconv_macos_universal`) over `fw/data/*.bdf`. **Not run by `make all`** — after changing any translatable/UI/DB strings, re-run `python3 scripts/font_data_gen.py` (on non-x86 hosts, run it inside the `solosky/nrf52-sdk` docker image since `bdfconv_linux` is x86-64) or the new characters will silently render blank.
 - `resource_gen.py`, `version_gen.py` — app icons/resources/version. Icons source: `fw/resources/{aseprite,bmp}/app_*_32x32.{aseprite,bmp}`.
 - Standalone (not invoked by build): `amiibo_tree_gen.py`, `key_data_gen.py`, `video_clip_gen.py`.
 

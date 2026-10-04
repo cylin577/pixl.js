@@ -31,8 +31,10 @@ def extract_non_printable_chars():
     for source_dir in source_dirs:
         for root, _, files in os.walk(source_dir):
             for file in files:
-                if file.endswith(".c"):
-                    with open(os.path.join(root, file), "r", encoding="utf-8") as f:
+                # .h is included because language_list.h holds the native
+                # language descriptions (e.g. 简体中文) used by the language menu.
+                if file.endswith((".c", ".h")):
+                    with open(os.path.join(root, file), "r", encoding="utf8") as f:
                         content = f.read()
                         non_printable_chars.update(re.findall(r"[^\x20-\x7E]", content))
 
