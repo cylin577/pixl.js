@@ -68,7 +68,7 @@ cd fw && make all BOARD=OLED RELEASE=1    # or BOARD=LCD
 
 ## Conventions
 
-- This repo is a fork: **do not open pull requests to the upstream repository.** Do the work on a short-lived branch, get CI green (`.github/workflows/pixl.js-fw.yml`, `workflow_dispatch` on the branch), then merge directly into `main` (use `--no-ff`) and push. Tag a release only when asked.
+- This repo is a fork: **do not open pull requests to the upstream repository.** Work directly on `main` (commit and push there; CI runs via `workflow_dispatch` when needed). Do **not** create feature branches unless the user explicitly says they will open a PR. Tag a release only when asked.
 - Firmware follows `.clang-format` at repo root / `fw/.clang-format`.
 - Docs exist in en/zh/it — update all three (or at least en) when changing user-facing docs. Docs are trilingual; firmware data (CSVs, i18n) is bilingual EN+ZH.
 - GPL 2.0: no Nintendo-licensed assets (keys, raw Amiibo data) in source. `key_retail.bin` is user-supplied at runtime (uploaded to device storage root), never committed.
