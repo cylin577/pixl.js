@@ -53,7 +53,7 @@ cd fw && make all BOARD=OLED RELEASE=1    # or BOARD=LCD
 
 `fw/application/Makefile` invokes `fw/scripts/*.py` during build (Python 3, deps in `fw/scripts/requirements.txt`):
 - `amiibo_db_gen.py` — Amiibo database → generated C sources. Source data: `fw/data/amiidb_{amiibo,game,link}.csv` (character/game/series names, EN+ZH).
-- `i18n_gen.py` — translations → `fw/application/src/i18n/` (`*.c` per locale, e.g. `zh_Hans.c`); edit source translation files (`fw/data/i18n.csv`), not generated output.
+- `i18n_gen.py` — translations → `fw/application/src/i18n/` (`*.c` per locale, e.g. `zh_Hans.c`) plus generated `string_id.h` / `language_list.h`; only the languages listed in `fw/data/i18n_languages.txt` are compiled (currently EN + ZH). Edit source translation files (`fw/data/i18n.csv`) and `i18n_languages.txt`, not generated output.
 - `font_data_gen.py` — CJK/font data; runs `bdfconv` binaries shipped in `fw/scripts/` (per-OS: `bdfconv.exe`, `bdfconv_linux`, `bdfconv_macos_universal`) over `fw/data/*.bdf` + `chinese3.txt`/`gb2312a.txt`.
 - `resource_gen.py`, `version_gen.py` — app icons/resources/version. Icons source: `fw/resources/{aseprite,bmp}/app_*_32x32.{aseprite,bmp}`.
 - Standalone (not invoked by build): `amiibo_tree_gen.py`, `key_data_gen.py`, `video_clip_gen.py`.
@@ -68,6 +68,7 @@ cd fw && make all BOARD=OLED RELEASE=1    # or BOARD=LCD
 
 ## Conventions
 
+- This repo is a fork: **do not open pull requests to the upstream repository.** Do the work on a short-lived branch, get CI green (`.github/workflows/pixl.js-fw.yml`, `workflow_dispatch` on the branch), then merge directly into `main` (use `--no-ff`) and push. Tag a release only when asked.
 - Firmware follows `.clang-format` at repo root / `fw/.clang-format`.
 - Docs exist in en/zh/it — update all three (or at least en) when changing user-facing docs. Docs are trilingual; firmware data (CSVs, i18n) is bilingual EN+ZH.
 - GPL 2.0: no Nintendo-licensed assets (keys, raw Amiibo data) in source. `key_retail.bin` is user-supplied at runtime (uploaded to device storage root), never committed.
