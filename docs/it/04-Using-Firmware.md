@@ -470,7 +470,7 @@ Questa applicazione permette di configurare le impostazioni di funzionamento del
 
 |   |
 | ------------ |
-| Versione []<BR>Lingua []<BR>Memoria Auto []<BR>Retroilluminazione / Contrasto OLED []<BR>Animazione Menu []<BR>Batteria LiPO []<BR>Memoria Utilizzata []<BR>Ripresa Veloce []<BR>Display Capovolto []<BR>Scambia Pulsanti []<BR>Timer Sleep []<BR>Aggiornamento Firmware<BR>Riavvio Sistema |
+| Versione []<BR>Lingua []<BR>Memoria Auto []<BR>Retroilluminazione / Luminosità OLED []<BR>Display Capovolto []<BR>Scambia Pulsanti []<BR>Animazione Menu []<BR>Batteria LiPO []<BR>Memoria Utilizzata []<BR>Ripresa Veloce []<BR>Timer Sleep []<BR>Aggiornamento Firmware<BR>Riavvio Sistema |
 |   |
 
 ## Versione
@@ -485,8 +485,8 @@ Questo sottomenu mostra i dettagli della versione del firmware.
 Puoi cambiare la lingua visualizzata sul dispositivo. Questo firmware include l'inglese e il cinese semplificato; l'insieme delle lingue compilate è configurato in `fw/data/i18n_languages.txt`, quindi puoi abilitare altre lingue presenti in `fw/data/i18n.csv` aggiungendole lì e ricompilando.
 ## Memoria Auto
 Attivando questa impostazione le memorie locali del dispositivo sono nascoste alla radice dell'applicazione Emulatore Amiibo, se questa impostazione è OFF l'oggetto «Flash esterno» viene mostrato alla radice dell'applicazione Emulatore Amiibo.
-## Retroilluminazione / Contrasto OLED
-Con questa impostazione puoi controllare la luminosità dello schermo LCD o il contrasto dello schermo OLED.
+## Retroilluminazione / Luminosità
+Con questa impostazione puoi controllare la luminosità della retroilluminazione dello schermo LCD o, nella build OLED, la luminosità del display (mostrata come **Luminosità**).
 
 ## Animazione Menu
 Abilita / disabilita l'animazione degli elementi più grandi dello schermo permettendo di leggerli completamente, abilitando questa opzione aumenta il consumo della batteria.
