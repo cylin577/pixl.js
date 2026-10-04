@@ -193,8 +193,13 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe146, _T(APP_SET_STORAGE), txt, (void *)SETTINGS_MAIN_MENU_STORAGE);
 
     snprintf(txt, sizeof(txt), "[%d%%]", p_settings->oled_contrast);
+#ifdef OLED_SCREEN
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_BRIGHTNESS), txt,
+                               (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
+#else
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_OLED_CONTRAST), txt,
                                (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
+#endif
 
 #ifdef LCD_SCREEN
     if (p_settings->lcd_backlight == 0) {
@@ -205,6 +210,14 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_LCD_BACKLIGHT), txt,
                                (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
 #endif
+
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_FLIP_DISPLAY),
+                               p_settings->flip_display ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_FLIP_DISPLAY);
+
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_SWAP_BUTTONS),
+                               p_settings->swap_buttons ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_SWAP_BUTTONS);
 
     mui_list_view_add_item_ext(app->p_list_view, 0xe1dc, _T(APP_SET_ANIM),
                                p_settings->anim_enabled ? _T(ON_F) : _T(OFF_F),
@@ -220,14 +233,6 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe232, _T(APP_SET_HIBERNATE),
                                p_settings->hibernate_enabled ? _T(ON_F) : _T(OFF_F),
                                (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
-
-    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_FLIP_DISPLAY),
-                               p_settings->flip_display ? _T(ON_F) : _T(OFF_F),
-                               (void *)SETTINGS_MAIN_MENU_FLIP_DISPLAY);
-
-    mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_SWAP_BUTTONS),
-                               p_settings->swap_buttons ? _T(ON_F) : _T(OFF_F),
-                               (void *)SETTINGS_MAIN_MENU_SWAP_BUTTONS);
 
     if (nrf_pwr_mgmt_get_timeout() == 0) {
         snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));

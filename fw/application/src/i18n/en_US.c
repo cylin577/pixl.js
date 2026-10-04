@@ -20,6 +20,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_SET_STORAGE] = "External Storage",
     [_L_APP_SET_OLED_CONTRAST] = "Contrast",
     [_L_APP_SET_OLED_CONTRAST_TITLE] = "Contrast",
+    [_L_APP_SET_BRIGHTNESS] = "Brightness",
     [_L_APP_SET_LCD_BACKLIGHT] = "Backlight",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Backlight Brightness",
     [_L_APP_SET_ANIM] = "Menu Animation",

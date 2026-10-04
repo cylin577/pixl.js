@@ -506,7 +506,7 @@ This application allows to configure the device working settings, the applicatio
 
 |   |
 | ------------ |
-| Version []<BR>Language []<BR>Auto Storage []<BR>Backlight / OLED Contrast []<BR>Menu Animation []<BR>LiPO Battery []<BR>Memory Used []<BR>Fast Resume []<BR>Flip Display []<BR>Swap Buttons []<BR>Sleep Timer []<BR>Firmware Update<BR>System Reboot |
+| Version []<BR>Language []<BR>Auto Storage []<BR>Backlight / OLED Brightness []<BR>Flip Display []<BR>Swap Buttons []<BR>Menu Animation []<BR>LiPO Battery []<BR>Memory Used []<BR>Fast Resume []<BR>Sleep Timer []<BR>Firmware Update<BR>System Reboot |
 |   |
 
 ## Version
@@ -521,8 +521,8 @@ This submenu shows the version details of the firmware.
 You can change the language displayed on the device. This firmware ships with English and Simplified Chinese; the set of compiled languages is configured in `fw/data/i18n_languages.txt`, so additional languages from `fw/data/i18n.csv` can be enabled by adding them there and rebuilding.
 ## External Storage
 You could view the external storage status and usage here, enter this menu could view the external storage usage details and perform format operation.
-## Backlight / Contrast
-With this setting you can control the brightness of the LCD screen or the contrast of the OLED screen.
+## Backlight / Brightness
+With this setting you can control the brightness of the LCD screen backlight or, on the OLED build, the display brightness (shown as **Brightness**).
 ## Menu Animation
 Enable / disable the animation of items larger than screen allowing to read them completely, enabling this option increase the battery consumption.
 ## LiPO Battery
