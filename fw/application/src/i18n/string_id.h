@@ -198,6 +198,8 @@ typedef enum {
     _L_APP_GAME_TINY_INVADERS,
     _L_APP_GAME_TINY_LANDER,
     _L_APP_GAME_TINY_TRIS,
+    _L_NO_ANIMATION_FILES,
+    _L_NOT_PLAYING,
     _L_COUNT,
 } L_StringID;
 #endif

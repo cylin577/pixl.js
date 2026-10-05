@@ -197,4 +197,6 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "Invaders",
     [_L_APP_GAME_TINY_LANDER] = "Lander",
     [_L_APP_GAME_TINY_TRIS] = "Tris",
+    [_L_NO_ANIMATION_FILES] = "No Animation Files",
+    [_L_NOT_PLAYING] = "Not Playing",
 };

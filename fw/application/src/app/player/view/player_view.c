@@ -1,4 +1,5 @@
 #include "player_view.h"
+#include "i18n/language.h"
 #include "nrf_log.h"
 #include "nrf_pwr_mgmt.h"
 
@@ -16,7 +17,7 @@ static void player_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             p_player_view->played_frames++;
 
             char txt[10];
-            sprintf(txt, "%d", p_player_view->played_frames++);
+            sprintf(txt, "%d", p_player_view->played_frames);
 
             mui_canvas_set_draw_color(p_canvas, 0);
             mui_canvas_draw_box(p_canvas, 0, 0, mui_canvas_get_utf8_width(p_canvas, txt), 12);
@@ -29,7 +30,7 @@ static void player_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             }
         }
     } else {
-        mui_canvas_draw_utf8(p_canvas, 0, 10, "<未播放动画>");
+        mui_canvas_draw_utf8(p_canvas, 0, 10, _T(NOT_PLAYING));
     }
 }
 
