@@ -6,9 +6,7 @@ GROUP(-lgcc -lc -lnosys)
 MEMORY
 {
   FLASH (rx) : ORIGIN = 0x19000, LENGTH = 0x5B000
-  /* TEMP-DEBUG: region enlarged by 0x8000 (beyond physical RAM) purely so a
-     RAM-overflowing link still produces a map/size report. NEVER flash this. */
-  RAM (rwx) :  ORIGIN = 0x20003600, LENGTH = 0x14A00
+  RAM (rwx) :  ORIGIN = 0x20003600, LENGTH = 0xCA00
   /* Put a noinit region at RAM  */
   NOINIT (rwx) : ORIGIN = 0x20002bd0, LENGTH = 0xA30
 }

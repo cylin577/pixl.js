@@ -82,7 +82,6 @@
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
-uint8_t m_u8g2_initialized = 0;
 
 #ifdef LCD_SCREEN
 APP_PWM_INSTANCE(pwm1, 1); // Create the instance "PWM1" using TIMER1.
@@ -145,11 +144,7 @@ uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_in
 
 uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr) {
 
-    uint8_t *data;
-    bool res = false;
     ret_code_t err_code;
-    static uint8_t buffer[128];
-    static uint8_t buf_idx = 1;
 
     switch (msg) {
     case U8X8_MSG_BYTE_SEND: {
