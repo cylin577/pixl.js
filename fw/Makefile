@@ -6,7 +6,14 @@ bl:
 	@$(MAKE) -C bootloader/
 
 app:
-	@$(MAKE) -C application/
+	@$(MAKE) -C application/ || { \
+		echo "=== TEMP-DEBUG: link failed, dumping per-object RAM usage ==="; \
+		arm-none-eabi-size ../_build/pixljs/*.o | sort -k4 -n -r | head -40; \
+		echo "=== TEMP-DEBUG: objects sorted by data ==="; \
+		arm-none-eabi-size ../_build/pixljs/*.o | sort -k3 -n -r | head -20; \
+		echo "=== TEMP-DEBUG: map file (if written) ==="; \
+		sed -n '1,80p' ../_build/pixljs.map 2>/dev/null; \
+		exit 1; }
 
 ota:
 	@$(MAKE) -C application/ full ota
