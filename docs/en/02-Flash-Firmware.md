@@ -11,13 +11,13 @@ Download the latest version of the firmware zip package. It should contain next 
 - pixljs.hex
 - pixljs_all.hex
 - fw_readme.txt
-- pixjs_ota_v237.zip
+- pixljs_ota_v237.zip
 
-You need to connect the 3.3 Volt, GND, SWDIO and SWDCLK leads.  you can use the file  `fw_update.bat` to flash the `pixjs_all.hex` firmware.
+You need to connect the 3.3 Volt, GND, SWDIO and SWDCLK leads.  you can use the file  `fw_update.bat` to flash the `pixljs_all.hex` firmware.
 
 You can also use OpenOCD to flash the device, this is an example of the command to execute:
 ```
-openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
+openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixljs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
 ```
 After first flash is completed, subsequent firmware updates can be done via OTA.
 
@@ -33,13 +33,13 @@ Put your pixl.js device on "Firmware Update" mode, then the device will enter DF
 
 Open "nRF Connect" app on your phone and connect to the device named `pixl dfu` to update the firmware.
 
-On iOS, The firmware is `pixjs_ota_vxxx.zip` in the compressed package and needs to be shared with the nrfconnect application through WeChat or QQ.
+On iOS, The firmware is `pixljs_ota_vxxx.zip` in the compressed package and needs to be shared with the nrfconnect application through WeChat or QQ.
 
-On Android you can use the DFU icon on the upper right of the screen, Select the `Distribution packet (ZIP)` option and browse your storage for the `pixjs_ota_vxxx.zip` file.
+On Android you can use the DFU icon on the upper right of the screen, Select the `Distribution packet (ZIP)` option and browse your storage for the `pixljs_ota_vxxx.zip` file.
 
 ### Web page method
 Download the latest version of the firmware zip package corresponding to your device version, and extract it to a directory.
-The release package is an outer zip file for your hardware version. Do not upload that outer zip file to the DFU updater. After extracting it, use the inner OTA package named `pixjs_ota_vxxx.zip`. Uploading the outer release zip can cause errors such as `Unable to find manifest` or `init not found`.
+The release package is an outer zip file for your hardware version. Do not upload that outer zip file to the DFU updater. After extracting it, use the inner OTA package named `pixljs_ota_vxxx.zip`. Uploading the outer release zip can cause errors such as `Unable to find manifest` or `init not found`.
 
 The project provide two ways to achive a DFU update:
 
@@ -51,7 +51,7 @@ Also you can go directly to the Firmware Update Page.
 
 First you need to put your pixl.js device on "Firmware Update" mode.  To do so, select the `Settings` app and select the item `Firmware Update`.
 
-Open the [firmware update page](https://thegecko.github.io/web-bluetooth-dfu).  Drag and drop or select the inner `pixjs_ota_vxxx.zip` file from the folder where you extracted the firmware package.
+Open the [firmware update page](https://thegecko.github.io/web-bluetooth-dfu).  Drag and drop or select the inner `pixljs_ota_vxxx.zip` file from the folder where you extracted the firmware package.
 
 Then press the `SELECT DEVICE` button on the page you should see a device called `pixl dfu` connect to start the firmware upgrade process.
 
@@ -104,4 +104,4 @@ The screen may still show stripes or a garbled image while the device is in DFU 
 
 If blind menu navigation fails, use the bootloader DFU button instead: power off the device, then hold RIGHT and power on the device while continuing to hold RIGHT for about 3 seconds until the device advertises as `pixl dfu`.
 
-Now the device is in DFU mode. Use either the [nRF Connect APP](#nrf-connect-app) or the [Firmware Update Page](#directly-to-the-firmware-update-page) to flash the correct `pixjs_ota_vxxx.zip` file for your hardware version. If the web update stalls, start the update again; DFU can resume. If the official web page does not find the device or the browser update continues to stall, use nRF Connect or the wired method instead.
+Now the device is in DFU mode. Use either the [nRF Connect APP](#nrf-connect-app) or the [Firmware Update Page](#directly-to-the-firmware-update-page) to flash the correct `pixljs_ota_vxxx.zip` file for your hardware version. If the web update stalls, start the update again; DFU can resume. If the official web page does not find the device or the browser update continues to stall, use nRF Connect or the wired method instead.

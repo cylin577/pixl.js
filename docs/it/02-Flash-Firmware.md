@@ -11,13 +11,13 @@ Scarica l'ultima versione del pacchetto zip del firmware. Dovrebbe contenere i s
 - pixljs.hex
 - pixljs_all.hex
 - fw_readme.txt
-- pixjs_ota_v237.zip
+- pixljs_ota_v237.zip
 
-Devi collegare i cavi da 3.3 Volt, GND, SWDIO e SWDCLK. Puoi utilizzare il file `fw_update.bat` per flashare il firmware `pixjs_all.hex`.
+Devi collegare i cavi da 3.3 Volt, GND, SWDIO e SWDCLK. Puoi utilizzare il file `fw_update.bat` per flashare il firmware `pixljs_all.hex`.
 
 Puoi anche utilizzare OpenOCD per flashare il dispositivo, questo è un esempio del comando da eseguire:
 ```
-openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
+openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixljs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
 ```
 Dopo che il primo flash è completato, gli aggiornamenti del firmware successivi possono essere effettuati tramite OTA.
 
@@ -33,7 +33,7 @@ Metti il tuo dispositivo pixl.js in modalità "Aggiornamento Firmware", poi il d
 
 Apri l'app "nRF Connect" sul tuo telefono e connettiti al dispositivo chiamato `pixl dfu` per aggiornare il firmware.
 
-Su iOS, il firmware è `pixjs_ota_vxxx.zip`
+Su iOS, il firmware è `pixljs_ota_vxxx.zip`
 
 ### Metodo della pagina web
 Scarica l'ultima versione del pacchetto zip del firmware corrispondente alla versione del tuo dispositivo ed estrailo in una directory.

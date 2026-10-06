@@ -28,7 +28,7 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
 
 ```
 
-The firmware is fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip
+The firmware is fw/_build/pixljs_all.hex，ota package is fw/_build/pixljs_ota_vXXXX.zip
 
 ## OTA signing key
 

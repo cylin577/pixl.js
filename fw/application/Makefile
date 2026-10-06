@@ -759,8 +759,8 @@ version:
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
 
-ota: 
-	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
+ota:
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixljs_ota_v$(APP_VERSION).zip
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex

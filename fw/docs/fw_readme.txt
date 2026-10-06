@@ -9,4 +9,4 @@
 方法二：OTA更新
 此方法仅适用于已经通过线刷成功的Pixl.js设备。
 安装nrfconnect应用（iOS、Android都支持），设备在 设置 菜单中选择 ”固件更新“ 菜单后，设备会进入DFU模式，然后使用nrfconnect连接名为pixl dfu设备更新固件。
-固件是压缩包里面的pixjs_ota_vxxx.zip，需要通过微信或者QQ分享给nrfconnect应用。
+固件是压缩包里面的pixljs_ota_vxxx.zip，需要通过微信或者QQ分享给nrfconnect应用。

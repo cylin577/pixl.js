@@ -11,7 +11,7 @@ Release assets are split by hardware version:
 | LCD pixl.js / allmiibo-compatible hardware with the three-way thumbwheel control | `*_LCD.zip` |
 | OLED pixl.js hardware with the same three-way thumbwheel control | `*_OLED.zip` |
 
-After downloading the correct outer release package, extract it and use the inner `pixjs_ota_vxxx.zip` file for OTA updates.
+After downloading the correct outer release package, extract it and use the inner `pixljs_ota_vxxx.zip` file for OTA updates.
 
 ## Modified or rebranded devices
 
