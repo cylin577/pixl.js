@@ -131,10 +131,14 @@ Nota:
 
 | Codice di stato | Descrizione |
 | ---- | ---- |
-| 0 | La richiesta è stata completata con successo |
-| 0xFF | Il firmware non supporta l'attuale messaggio |
+| 0x00 | Richiesta completata con successo |
+| 0x01 | Errore generico: lettera di unità non valida, percorso non valido oppure operazione sul file non riuscita (vedi le sezioni dei singoli messaggi) |
+| 0xFF | Il firmware non supporta l'attuale messaggio (comando sconosciuto); viene riportato anche come generico errore di lettura su 0x14 |
 
-TODO Integrare il codice di errore in dettaglio. 
+Note:
+* Ogni messaggio trasporta solo uno dei codici di stato generici sopra riportati; non esiste uno spazio di codici di errore per singolo messaggio.
+* 0x14 Lettura file: se la lettura del file system sottostante non riesce, il firmware può restituire il codice di errore VFS interno inserito nel byte di stato: 0xFD = EOF, 0xFE = memoria esaurita, 0xA6 = oggetto non trovato, 0xA5 = spazio esaurito, 0x9D = operazione non supportata. Nota che 0xFF può quindi indicare anche un errore di lettura — i client dovrebbero trattare qualsiasi stato diverso da zero come un errore.
+* 0x10 Elenco unità: il byte di stato di ciascuna unità all'interno di ogni record è separato da questo stato globale (0 = unità disponibile, 1 = non disponibile).
 
 
 

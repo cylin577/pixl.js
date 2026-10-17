@@ -137,10 +137,14 @@ Note:
 
 | Status code | Description |
 | ---- | ---- |
-| 0 | The request has been completed successfully |
-| 0xFF | The firmware does not support the current message |
+| 0x00 | Request completed successfully |
+| 0x01 | Generic error: invalid drive letter, invalid path, or the file operation failed (see per-message sections) |
+| 0xFF | Firmware does not support the current message (unknown cmd); also reported as a generic read failure on 0x14 |
 
-TODO Supplement the error code in detail. .
+Notes:
+* Each message carries only one of the generic status codes above; there is no per-message error code namespace.
+* 0x14 Read File: if the underlying file-system read fails, the firmware may return the internal VFS error code wrapped into the status byte: 0xFD = EOF, 0xFE = out of memory, 0xA6 = object not found, 0xA5 = no space, 0x9D = unsupported operation. Note 0xFF can therefore also mean a read failure — clients should treat any non-zero status as a failure.
+* 0x10 Drive List: the per-drive status byte inside each record is separate from this global status (0 = drive available, 1 = unavailable).
 
 
 

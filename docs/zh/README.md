@@ -6,9 +6,9 @@
 
 - [PCB](01-Hardware.md#PCB)
 - [BOM](01-Hardware.md#BOM)
-- [图片](01-Hardware.md#Pictures)
+- [图片](01-Hardware.md#图片)
 - [演示](01-Hardware.md#Demo)
-- [外壳](01-Hardware.md#Shell)
+- [外壳](01-Hardware.md#外壳)
 - [OLED版本](01-Hardware.md#OLED-version) 
 
 
@@ -31,7 +31,10 @@
 
 # 外壳
 
-TODO
+你可以从 [这里](https://www.thingiverse.com/thing:5877482) 下载由@白橙 为此项目制作的外壳
+![外壳](https://github.com/solosky/pixl.js/blob/main/assets/pixjs-case1.png)
+
+更多硬件资料（PCB、BOM、OLED版本）请见 [硬件文档](01-Hardware.md#外壳)。
 
 # 技术文档
 
