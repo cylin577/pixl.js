@@ -17,6 +17,20 @@ jobs:
     strategy:
       matrix:
         board: ["LCD", "OLED"]
+        lite: [false]
+        include:
+          - board: LCD
+            lite: true
+            lang: EN
+          - board: LCD
+            lite: true
+            lang: CN
+          - board: OLED
+            lite: true
+            lang: EN
+          - board: OLED
+            lite: true
+            lang: CN
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
@@ -27,7 +41,7 @@ jobs:
     - name: Change Owner of Container Working Directory
       run: chown root:root .
     - name: build firmware
-      run: cd fw && make all RELEASE=1 BOARD=${{matrix.board}}
+      run: cd fw && make all RELEASE=1 BOARD=${{matrix.board}} LITE=${{matrix.lite && 1 || 0}} LANG=${{matrix.lang || 'EN'}}
     - name: generate size report
       run: cd fw && make size_report RELEASE=1 BOARD=${{matrix.board}}
     - name: compare size against PR base (bytes)

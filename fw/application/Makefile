@@ -36,6 +36,9 @@ endif
 APP_VERSION_NUM := $(if $(GITHUB_RUN_NUMBER),$(GITHUB_RUN_NUMBER),1)
 RELEASE ?= 1
 BOARD ?= OLED
+LITE ?= 0
+LANG ?= EN
+I18N_LANGS ?=
 FW_TOP_SYMBOLS ?= 20
 FW_TOP_OBJECTS ?= 20
 DFU_PRIVATE_KEY ?= ../bootloader/priv.pem
@@ -647,6 +650,9 @@ CFLAGS += -DS112
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
 CFLAGS += -DBOARD_$(BOARD)
+ifeq ($(LITE),1)
+CFLAGS += -DLITE
+endif
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
@@ -760,14 +766,26 @@ settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
 
 ota:
+ifeq ($(LITE),1)
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixljs_ota_v$(APP_VERSION)-$(BOARD)-Lite-$(LANG).zip
+else
 	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixljs_ota_v$(APP_VERSION).zip
+endif
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
 
 gen:
 	python3 ../scripts/amiibo_db_gen.py
+ifeq ($(LITE),1)
+ifeq ($(LANG),CN)
+	I18N_LANGS=zh_Hans python3 ../scripts/i18n_gen.py
+else
+	I18N_LANGS=en_US python3 ../scripts/i18n_gen.py
+endif
+else
 	python3 ../scripts/i18n_gen.py
+endif
 	python3 ../scripts/font_data_gen.py
 	python3 ../scripts/resource_gen.py
 

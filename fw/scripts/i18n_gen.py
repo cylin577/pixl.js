@@ -41,6 +41,32 @@ def read_i18n_from_csv():
 
 def read_enabled_languages(avaliable_languages):
     """Read fw/data/i18n_languages.txt -> list of (csv_name, description)."""
+    import os as _os
+    env = _os.environ.get("I18N_LANGS")
+    if env:
+        # Load descriptions from config file if available, else fall back to name.
+        descs = {}
+        config_file = get_prorject_directory() + "/data/i18n_languages.txt"
+        if os.path.exists(config_file):
+            with open(config_file, "r", encoding="utf8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    name, _, desc = line.partition(",")
+                    descs[name.strip()] = desc.strip() or name.strip()
+        enabled = list()
+        for name in env.split(","):
+            name = name.strip()
+            if not name:
+                continue
+            if name not in avaliable_languages:
+                raise ValueError("I18N_LANGS: unknown language '%s'" % name)
+            enabled.append((name, descs.get(name, name)))
+        # Always keep en_US as fallback target for getLangString().
+        if "en_US" not in [e[0] for e in enabled] and "en_US" in avaliable_languages:
+            enabled.append(("en_US", descs.get("en_US", "English")))
+        return enabled
     config_file = get_prorject_directory() + "/data/i18n_languages.txt"
     if not os.path.exists(config_file):
         # No config: compile every language available in the CSV.

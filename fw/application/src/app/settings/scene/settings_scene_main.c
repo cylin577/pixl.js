@@ -174,7 +174,11 @@ static void settings_scene_main_reload(void *user_data) {
 
     mui_list_view_clear_items(app->p_list_view);
 
+#ifdef LITE_BUILD
+    snprintf(txt, sizeof(txt), "[%s-Lite]", version_get_version(version_get()));
+#else
     snprintf(txt, sizeof(txt), "[%s]", version_get_version(version_get()));
+#endif
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c7, _T(APP_SET_VERSION), txt, (void *)SETTINGS_MAIN_MENU_VERSION);
 
     snprintf(txt, sizeof(txt), "[%s]", getLangDesc(p_settings->language));

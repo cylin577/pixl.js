@@ -394,7 +394,7 @@ int32_t vfs_lfs_remove_file(const char *file) {
 }
 
 // TODO
-const vfs_driver_t vfs_driver_fs = {.mount = vfs_lfs_mount,
+const vfs_driver_t vfs_driver_lfs = {.mount = vfs_lfs_mount,
                                     .umount = vfs_lfs_umount,
                                     .format = vfs_lfs_format,
                                     .mounted = vfs_lfs_mounted,

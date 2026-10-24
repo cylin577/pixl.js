@@ -69,12 +69,14 @@
 
 // APP
 #define APP_LEGLAMIIBO_ENABLE
+#ifndef LITE_BUILD
 #define APP_PLAYER_ENABLE
-#if defined(INTERNAL_ENABLE)
-#undef APP_LEGLAMIIBO_ENABLE
 #endif
+
 //Game
+#ifndef LITE_BUILD
 #define APP_GAME_ENABLE
+#endif
 
 
 #endif

@@ -15,7 +15,11 @@ void settings_scene_version_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
     char txt[32];
+#ifdef LITE_BUILD
+    sprintf(txt, "[%s-Lite]", version_get_version(NULL));
+#else
     sprintf(txt, "[%s]", version_get_version(NULL));
+#endif
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c7, "Version", txt, (void *)0xFF);
 
     sprintf(txt, "[%s]", version_get_builddate(NULL));
