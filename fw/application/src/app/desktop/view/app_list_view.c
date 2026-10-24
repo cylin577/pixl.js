@@ -196,6 +196,8 @@ app_list_view_t *app_list_view_create() {
     return p_app_list_view;
 }
 void app_list_view_free(app_list_view_t *p_view) {
+    mui_anim_stop(&p_view->icon_anim);
+    mui_anim_stop(&p_view->name_anim);
     ptr_array_clear(p_view->items);
     mui_view_free(p_view->p_view);
     mui_mem_free(p_view);

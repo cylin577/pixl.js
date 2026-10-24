@@ -163,6 +163,7 @@ static void mui_anim_tick_handler() {
                     }
 
                     mui_anim_ptr_array_remove(m_anim_ptr_array, it);
+                    continue;
                 }
             }
         } else {
@@ -204,6 +205,7 @@ static mui_anim_t* mui_anim_remove_ptr(mui_anim_t* p_anim){
         }
         mui_anim_ptr_array_next(it);
     }
+    return NULL;
 }
 
 void mui_anim_core_init() {

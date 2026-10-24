@@ -307,6 +307,7 @@ void mui_list_view_free(mui_list_view_t *p_view) {
 
     mui_anim_stop(&p_view->anim);
     mui_anim_stop(&p_view->text_anim);
+    mui_anim_stop(&p_view->gap_anim);
 
     mui_list_item_array_it(it, p_view->items);
     while (!mui_list_item_array_end_p(it)) {
