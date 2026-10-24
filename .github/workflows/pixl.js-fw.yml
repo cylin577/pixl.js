@@ -113,7 +113,7 @@ jobs:
     - name: upload artifact
       uses: actions/upload-artifact@v7
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: pixljs_fw_${{matrix.board}}${{matrix.lite && '_Lite' || ''}}${{matrix.lite && (matrix.lang == 'CN' && '_CN' || '_EN') || ''}}
         if-no-files-found: error
         path: |
           bootloader.hex
