@@ -2,6 +2,7 @@
 #include "nrf_log.h"
 
 void mui_event_queue_init(mui_event_queue_t *p_queue) {
+    p_queue->redraw_pending = false;
     mui_event_deque_init(p_queue->event_deque);
 }
 void mui_event_set_callback(mui_event_queue_t *p_queue, mui_event_handler_t dispatcher,
@@ -18,14 +19,10 @@ void mui_event_post(mui_event_queue_t *p_queue, mui_event_t *p_event) {
     }
     // coalesce pending REDRAW events: one queued redraw is always enough
     if (p_event->id == MUI_EVENT_ID_REDRAW) {
-        mui_event_deque_it_t it;
-        mui_event_deque_it_last(it, p_queue->event_deque);
-        while (!mui_event_deque_end_p(it)) {
-            if (mui_event_deque_cref(it)->id == MUI_EVENT_ID_REDRAW) {
-                return;
-            }
-            mui_event_deque_previous(it);
+        if (p_queue->redraw_pending) {
+            return;
         }
+        p_queue->redraw_pending = true;
     }
     mui_event_t *p_new = mui_event_deque_push_back_new(p_queue->event_deque);
     memcpy(p_new, p_event, sizeof(mui_event_t));
@@ -35,10 +32,16 @@ void mui_event_dispatch(mui_event_queue_t *p_queue) {
     mui_event_t event;
     while (!mui_event_deque_empty_p(p_queue->event_deque)) {
         mui_event_deque_pop_front(&event, p_queue->event_deque);
+        if (event.id == MUI_EVENT_ID_REDRAW) {
+            p_queue->redraw_pending = false;
+        }
         p_queue->dispatcher(p_queue->dispatch_context, &event);
     }
 }
 
 void mui_event_dispatch_now(mui_event_queue_t *p_queue, mui_event_t* p_event){
+    if (p_event->id == MUI_EVENT_ID_REDRAW) {
+        p_queue->redraw_pending = false;
+    }
     p_queue->dispatcher(p_queue->dispatch_context, p_event);
 }

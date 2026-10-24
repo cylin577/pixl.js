@@ -22,6 +22,7 @@ typedef void (*mui_event_handler_t)(void* context, mui_event_t *p_event);
 typedef struct {
     mui_event_handler_t dispatcher;
     void* dispatch_context;
+    bool redraw_pending;
     mui_event_deque_t event_deque;
 } mui_event_queue_t;
 
