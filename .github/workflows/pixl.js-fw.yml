@@ -91,12 +91,7 @@ jobs:
         cp fw/_build/size_comparison_${{matrix.board}}.md .
         if [ -f fw/_build/size_report_base_${{matrix.board}}.txt ]; then cp fw/_build/size_report_base_${{matrix.board}}.txt .; fi
         if [ -f fw/_build/size_report_base_${{matrix.board}}.json ]; then cp fw/_build/size_report_base_${{matrix.board}}.json .; fi
-    - name: upload to release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v2
-      with:
-        files: fw/_build/pixljs_ota_v*.zip
-        fail_on_unmatched_files: true
+    - name: upload artifact
     - name: upload artifact
       uses: actions/upload-artifact@v7
       with:
@@ -114,6 +109,26 @@ jobs:
           size_comparison_${{matrix.board}}.md
           size_report_base_${{matrix.board}}.txt
           size_report_base_${{matrix.board}}.json
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist
+        merge-multiple: true
+    - name: upload to release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/**/*.zip
+        tag_name: ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-size-report:
     needs: build
