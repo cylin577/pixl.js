@@ -91,6 +91,11 @@ jobs:
         cp fw/_build/size_comparison_${{matrix.board}}.md .
         if [ -f fw/_build/size_report_base_${{matrix.board}}.txt ]; then cp fw/_build/size_report_base_${{matrix.board}}.txt .; fi
         if [ -f fw/_build/size_report_base_${{matrix.board}}.json ]; then cp fw/_build/size_report_base_${{matrix.board}}.json .; fi
+    - name: upload to release
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release upload "${GITHUB_REF_NAME#refs/tags/}" fw/_build/pixljs_ota_v*.zip --clobber
     - name: upload artifact
       uses: actions/upload-artifact@v7
       with:
