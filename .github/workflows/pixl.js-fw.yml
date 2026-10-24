@@ -80,7 +80,7 @@ jobs:
         mv fw/_build/bootloader.hex .
         mv fw/_build/pixljs.hex .
         mv fw/_build/pixljs_all.hex .
-        mv fw/_build/pixljs_ota_v*.zip .
+        mv fw/_build/pixljs_ota_*.zip .
         mv fw/docs/fw_readme.txt .
         mv fw/scripts/fw_update.bat .
         cp fw/_build/size_report_${{matrix.board}}.txt .
@@ -97,7 +97,7 @@ jobs:
           bootloader.hex
           pixljs.hex
           pixljs_all.hex
-          pixljs_ota_v*.zip
+          pixljs_ota_*.zip
           fw_readme.txt
           fw_update.bat
           size_report_${{matrix.board}}.txt
