@@ -31,9 +31,6 @@ jobs:
           - board: OLED
             lite: true
             lang: CN
-          - board: OLED
-            lite: true
-            lang: CN
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
