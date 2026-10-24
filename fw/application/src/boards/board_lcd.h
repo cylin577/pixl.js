@@ -51,7 +51,7 @@
 
 
 // VFS driver
-//#define VFS_LFS_ENABLE
+#define VFS_LFS_ENABLE
 #define VFS_SPIFFS_ENABLE
 
 
