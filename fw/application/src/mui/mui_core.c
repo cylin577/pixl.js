@@ -209,7 +209,7 @@ void mui_add_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {
     // verify that view port is not added
     mui_view_port_array_it_t it;
     for (size_t i = 0; i < MUI_LAYER_MAX; i++) {
-        mui_view_port_array_it(it, p_mui->layers[layer]);
+        mui_view_port_array_it(it, p_mui->layers[i]);
         while (!mui_view_port_array_end_p(it)) {
             mui_assert(*mui_view_port_array_ref(it) != p_vp);
             mui_view_port_array_next(it);
