@@ -119,6 +119,12 @@ int32_t vfs_lfs_mount(void) {
     // reformat if we can't mount the filesystem
     // this should only happen on the first boot
     if (err) {
+        // first boot after the SPIFFS -> LFS switch: carry the legacy files over
+        // before the format below wipes them
+        if (vfs_migrate_spiffs_to_lfs() == VFS_OK) {
+            mounted = true;
+            return VFS_OK;
+        }
         NRF_LOG_INFO("mount error, format as new device: %d", err);
         err = lfs_format(&lfs, &lfs_config);
         if (err) {

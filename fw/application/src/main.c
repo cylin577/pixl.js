@@ -272,6 +272,8 @@ int main(void) {
     err_code = nrf_mem_init();
     APP_ERROR_CHECK(err_code);
 
+    mui_mem_init(); // vfs storage migration in settings_init() allocates
+
     err_code = nrf_pwr_mgmt_init();
     APP_ERROR_CHECK(err_code);
 

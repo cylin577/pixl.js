@@ -23,7 +23,12 @@ static void mui_mem_walker(void * ptr, size_t size, int used, void * user)
     }
 }
 
-void mui_mem_init() { m_tlsf = tlsf_create_with_pool(m_mem, sizeof(m_mem)); }
+void mui_mem_init() {
+    // the vfs SPIFFS -> LFS migration runs before mui_init and needs the pool
+    if (m_tlsf == NULL) {
+        m_tlsf = tlsf_create_with_pool(m_mem, sizeof(m_mem));
+    }
+}
 void mui_mem_deinit() {
     tlsf_destroy(m_tlsf);
     m_tlsf = NULL;

@@ -220,6 +220,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_meta.c \
+  $(PROJ_DIR)/mod/vfs/vfs_migrate.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_lfs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
@@ -651,7 +652,7 @@ CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
 CFLAGS += -DBOARD_$(BOARD)
 ifeq ($(LITE),1)
-CFLAGS += -DLITE
+CFLAGS += -DLITE_BUILD
 endif
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
