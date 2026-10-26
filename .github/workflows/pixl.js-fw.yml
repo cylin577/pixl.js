@@ -81,7 +81,7 @@ jobs:
         mv fw/_build/bootloader.hex .
         mv fw/_build/pixljs.hex .
         mv fw/_build/pixljs_all.hex .
-        mv fw/_build/pixljs_ota_*.zip .
+        mv fw/_build/*.zip .
         mv fw/docs/fw_readme.txt .
         mv fw/scripts/fw_update.bat .
         cp fw/_build/size_report_${{matrix.board}}.txt .
@@ -98,7 +98,7 @@ jobs:
           bootloader.hex
           pixljs.hex
           pixljs_all.hex
-          pixljs_ota_*.zip
+          *.zip
           fw_readme.txt
           fw_update.bat
           size_report_${{matrix.board}}.txt
@@ -122,10 +122,32 @@ jobs:
     - name: upload to release
       uses: softprops/action-gh-release@v2
       with:
-        files: dist/**/*.zip
+        files: |
+          dist/**/*.zip
+          dist/fw_readme.txt
+          dist/fw_update.bat
         tag_name: ${{ github.ref_name }}
+        generate_release_notes: true
+        body: |
+          Firmware build of fork main (run #${{ github.run_number }}).
+
+          ## Read before updating: storage migration
+
+          Since v2.22.0 the storage filesystem switched from SPIFFS to LittleFS (LFS). The first boot after the update runs a one-time migration that copies your files (settings, Amiibo `.bin` dumps, `key_retail.bin`, AmiiboLink bins, chameleon card data and their hidden/read-only flags) from the old SPIFFS image into LFS before reformatting.
+
+          - **Let the first boot finish** — do not power off or flash again while it runs.
+          - Carry-over budget: up to 64 files, 4 KiB per file, 8 KiB in total. Larger content (player animations, video clips) is skipped and logged — re-copy those over BLE or the web app afterwards.
+          - Settings -> External storage reports `Mounted [LFS]` once it is done.
+
+          ## Install
+          - OTA: flash the package for your board (and language, for Lite) in DFU mode via nRF Connect or the web tool. iOS users: iNFC or MTools BLE.
+          - First boot after the update runs the storage migration once — let it finish.
+
+          ## Files
+          - `${{ github.ref_name }}_LCD.zip`, `${{ github.ref_name }}_OLED.zip` — full builds
+          - `${{ github.ref_name }}_LCD_Lite_EN.zip`, `${{ github.ref_name }}_LCD_Lite_CN.zip`, `${{ github.ref_name }}_OLED_Lite_EN.zip`, `${{ github.ref_name }}_OLED_Lite_CN.zip` — Lite builds
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
   publish-size-report:
     needs: build

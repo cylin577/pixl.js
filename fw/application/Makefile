@@ -768,9 +768,9 @@ settingsgen:
 
 ota:
 ifeq ($(LITE),1)
-	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixljs_ota_$(APP_VERSION)-$(BOARD)-Lite-$(LANG).zip
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/$(APP_VERSION)_$(BOARD)_Lite_$(LANG).zip
 else
-	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/pixljs_ota_$(APP_VERSION)-$(BOARD).zip
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION_NUM) --hw-version 52 --sd-req 0x0103 --key-file $(DFU_PRIVATE_KEY) $(OUTPUT_DIRECTORY)/$(APP_VERSION)_$(BOARD).zip
 endif
 
 full: settingsgen
