@@ -1,11 +1,6 @@
 name: pixl.js-fw
 
 on:
-  push:
-    branches: [ "develop", "neo_v2"]
-  pull_request:
-    types: ["opened", "synchronize", "reopened"]
-    branches: ["develop"]
   release:
     types: [published]
   workflow_dispatch:
