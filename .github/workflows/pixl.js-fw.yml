@@ -113,14 +113,20 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: dist
-        merge-multiple: true
+        merge-multiple: false
+    - name: package per-board full archives (pre-2.22.0 style)
+      run: |
+        cd dist
+        for dir in pixljs_fw_*/; do
+          variant="${dir#pixljs_fw_}"
+          variant="${variant%/}"
+          (cd "$dir" && zip -q -r -X "../${GITHUB_REF_NAME}_${variant}.zip" .)
+        done
+        ls -la *.zip
     - name: upload to release
       uses: softprops/action-gh-release@v2
       with:
-        files: |
-          dist/**/*.zip
-          dist/fw_readme.txt
-          dist/fw_update.bat
+        files: dist/*.zip
         tag_name: ${{ github.ref_name }}
         generate_release_notes: true
         body: |
