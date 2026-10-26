@@ -3,11 +3,10 @@ name: pixl.js-fw
 on:
   push:
     branches: [ "develop", "neo_v2"]
+    tags:  ["*"]
   pull_request:
     types: ["opened", "synchronize", "reopened"]
     branches: ["develop"]
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -106,26 +105,6 @@ jobs:
           size_comparison_${{matrix.board}}.md
           size_report_base_${{matrix.board}}.txt
           size_report_base_${{matrix.board}}.json
-
-  release:
-    needs: build
-    if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - name: download all artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: dist
-        merge-multiple: true
-    - name: upload to release
-      uses: softprops/action-gh-release@v2
-      with:
-        files: dist/**/*.zip
-        tag_name: ${{ github.ref_name }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-size-report:
     needs: build
