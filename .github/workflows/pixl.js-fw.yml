@@ -130,7 +130,7 @@ jobs:
         tag_name: ${{ github.ref_name }}
         generate_release_notes: true
         body: |
-          Firmware build of fork main (run #${{ github.run_number }}).
+          Firmware build of fork main (run ${{ github.run_number }}).
 
           ## Read before updating: storage migration
 
