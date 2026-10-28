@@ -19,5 +19,6 @@ void ble_control_plane_init(void);
 ble_cp_mode_t ble_control_plane_mode_get(void);
 void ble_control_plane_set_mode(ble_cp_mode_t mode);
 uint8_t ble_control_plane_in_control_mode(void);
+uint8_t ble_control_plane_uuid_type(void);
 
 #endif

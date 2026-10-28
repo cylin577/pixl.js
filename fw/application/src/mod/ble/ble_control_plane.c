@@ -54,6 +54,7 @@ static void on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
 ble_cp_mode_t ble_control_plane_mode_get(void) { return m_mode; }
 void ble_control_plane_set_mode(ble_cp_mode_t mode) { m_mode = mode; }
 uint8_t ble_control_plane_in_control_mode(void) { return m_mode == BLE_CP_MODE_CONTROL; }
+uint8_t ble_control_plane_uuid_type(void) { return m_base_uuid_type; }
 
 void ble_control_plane_init(void) {
     ret_code_t err_code;
