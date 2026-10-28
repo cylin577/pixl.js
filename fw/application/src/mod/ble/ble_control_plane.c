@@ -4,18 +4,26 @@
 #include "nrf_sdh_ble.h"
 #include "nrf_log.h"
 #include "nrf_gpio.h"
+#include "mui_input.h"
+#include "bsp_btn.h"
 #include <string.h>
 
 static ble_cp_mode_t m_mode = BLE_CP_MODE_IDLE;
 static uint16_t m_service_handle = BLE_CONN_HANDLE_INVALID;
 static uint16_t m_tx_char_handle = BLE_CONN_HANDLE_INVALID;
-static uint16_t m_rx_char_handle = BLE_CONN_HANDLE_INVALID;
 static uint8_t m_base_uuid_type = BLE_UUID_TYPE_VENDOR_BEGIN;
 
 static ble_uuid_t m_service_uuid = {BLE_CONTROL_PLANE_SERVICE_UUID, BLE_UUID_TYPE_VENDOR_BEGIN};
 
 static void apply_button_state(uint8_t a, uint8_t b, uint8_t c) {
-    (void)a; (void)b; (void)c;
+    uint8_t states[3] = {a, b, c};
+    for (uint8_t i = 0; i < 3; i++) {
+        if (states[i]) {
+            mui_input_on_bsp_btn_event(i, BSP_BTN_EVENT_PRESSED);
+        } else {
+            mui_input_on_bsp_btn_event(i, BSP_BTN_EVENT_RELEASED);
+        }
+    }
 }
 
 static void handle_write(const uint8_t *data, uint16_t len) {
@@ -81,15 +89,16 @@ void ble_control_plane_init(void) {
     ble_uuid_t rx_uuid = {0x0003, m_base_uuid_type};
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.cccd_write_perm);
     attr_md.vloc = BLE_GATTS_VLOC_STACK;
     char_md.char_props.notify = 1;
+    char_md.p_cccd_md = &attr_md;
     attr_char_value.p_uuid = &rx_uuid;
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.max_len = 20;
     attr_char_value.init_len = 0;
     err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, &handles);
     APP_ERROR_CHECK(err_code);
-    m_rx_char_handle = handles.value_handle;
 
     NRF_SDH_BLE_OBSERVER(m_cp_observer, 3, on_ble_evt, NULL);
     NRF_LOG_INFO("BLE control plane init");
