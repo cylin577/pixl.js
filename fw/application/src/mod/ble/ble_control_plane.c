@@ -87,12 +87,13 @@ void ble_control_plane_init(void) {
     memset(&attr_md, 0, sizeof(attr_md));
     memset(&attr_char_value, 0, sizeof(attr_char_value));
     ble_uuid_t rx_uuid = {0x0003, m_base_uuid_type};
+    ble_gatts_attr_md_t cccd_md = {0};
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.write_perm);
+    cccd_md.vloc = BLE_GATTS_VLOC_STACK;
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.cccd_write_perm);
     attr_md.vloc = BLE_GATTS_VLOC_STACK;
     char_md.char_props.notify = 1;
-    char_md.p_cccd_md = &attr_md;
+    char_md.p_cccd_md = &cccd_md;
     attr_char_value.p_uuid = &rx_uuid;
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.max_len = 20;
