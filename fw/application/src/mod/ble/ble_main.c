@@ -80,6 +80,7 @@
 #include "nrf_log_default_backends.h"
 
 #include "ble_amiibolink.h"
+#include "ble_control_plane.h"
 #include "ble_df_driver.h"
 #include "ble_main.h"
 #include "df_core.h"
@@ -274,6 +275,8 @@ static void services_init(void) {
 
     err_code = ble_nus_init(&m_nus, &nus_init);
     APP_ERROR_CHECK(err_code);
+
+    ble_control_plane_init();
 }
 
 /**@brief Function for handling an event from the Connection Parameters Module.

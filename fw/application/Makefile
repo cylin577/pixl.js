@@ -217,6 +217,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/ble/ble_main.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/ble/ble_amiibolink.c \
+  $(PROJ_DIR)/mod/ble/ble_control_plane.c \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_meta.c \
