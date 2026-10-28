@@ -147,6 +147,8 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
 #define DEVICE_NAME_AMIIBOLINK "amiibolink"
 #define DEVICE_NAME_AMILOOP "AmiLoop"
 
+STATIC_ASSERT(sizeof(DEVICE_NAME_PIXLJS) - 1 <= 8, "Pixl.js name + 128-bit UUID exceeds 31-byte advdata");
+
 #define DEVICE_NAME DEVICE_NAME_PIXLJS
 
 static ble_gap_addr_t m_default_gap_addr = {0};
@@ -481,7 +483,7 @@ void gatt_init(void) {
 
 /**@brief Function for initializing the Advertising functionality.
  */
-static void advertising_init(void) {
+static void advertising_init(ble_device_mode_t mode) {
     uint32_t err_code;
     ble_advertising_init_t init;
 
@@ -491,12 +493,20 @@ static void advertising_init(void) {
     init.advdata.include_appearance = false;
     init.advdata.flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
 
-    static ble_uuid_t adv_uuids[2];
-    adv_uuids[0] = m_adv_uuids[0];
-    adv_uuids[1].uuid = BLE_CONTROL_PLANE_SERVICE_UUID;
-    adv_uuids[1].type = ble_control_plane_uuid_type();
-    init.srdata.uuids_complete.uuid_cnt = 2;
-    init.srdata.uuids_complete.p_uuids = adv_uuids;
+    static ble_uuid_t cp_uuid;
+    cp_uuid.uuid = BLE_CONTROL_PLANE_SERVICE_UUID;
+    cp_uuid.type = ble_control_plane_uuid_type();
+
+    init.srdata.uuids_complete.uuid_cnt = 1;
+    init.srdata.uuids_complete.p_uuids = m_adv_uuids;
+
+    // NUS + control plane cannot both fit the 31-byte scan response, so the
+    // control plane UUID rides in the advertising data for the short names
+    // (Pixl.js/AmiLoop: 3 + 9 + 18 = 30/31 bytes).
+    if (mode == BLE_DEVICE_MODE_PIXLJS || mode == BLE_DEVICE_MODE_AMILOOP) {
+        init.advdata.uuids_complete.uuid_cnt = 1;
+        init.advdata.uuids_complete.p_uuids = &cp_uuid;
+    }
 
     init.config.ble_adv_fast_enabled = true;
     init.config.ble_adv_fast_interval = APP_ADV_INTERVAL;
@@ -567,7 +577,7 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
         ble_set_device_name(DEVICE_NAME_PIXLJS);
         ble_addr_set(0);
     }
-    advertising_init();
+    advertising_init(mode);
 
     ble_service_id_set(mode == BLE_DEVICE_MODE_AMIIBOLINK_V2 ? 0x0000180F : 0x6e400001);
 }

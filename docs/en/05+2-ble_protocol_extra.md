@@ -16,8 +16,10 @@ It exposes exactly **two commands**:
 - Characteristic (write + write-without-response): `7e400002-b5a3-f393-e0a9-e50e24dcca9e` (Control TX)
 - Characteristic (notify): `7e400003-b5a3-f393-e0a9-e50e24dcca9e` (Control RX)
 
-The control plane is advertised whenever the device is powered and BLE is on. It is never
-disabled by entering file transfer or control mode; only the active mode changes.
+The control-plane UUID is advertised in Pixl.js and AmiLoop modes (it fits the 31-byte
+advertising data). In the amiibolink modes the advertisement is full, so the service is not
+advertised there, but it still exists on the connection. It is never disabled by entering
+file transfer or control mode; only the active mode changes.
 
 ## Packet format
 
