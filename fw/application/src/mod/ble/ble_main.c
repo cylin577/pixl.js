@@ -489,7 +489,7 @@ static void advertising_init(void) {
 
     init.advdata.name_type = BLE_ADVDATA_FULL_NAME;
     init.advdata.include_appearance = false;
-    init.advdata.flags = BLE_GAP_ADV_FLAGS_LE_ONLY_LIMITED_DISC_MODE;
+    init.advdata.flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
 
     static ble_uuid_t adv_uuids[2];
     adv_uuids[0] = m_adv_uuids[0];
@@ -500,7 +500,7 @@ static void advertising_init(void) {
 
     init.config.ble_adv_fast_enabled = true;
     init.config.ble_adv_fast_interval = APP_ADV_INTERVAL;
-    init.config.ble_adv_fast_timeout = APP_ADV_DURATION;
+    init.config.ble_adv_fast_timeout = 0;
     init.evt_handler = on_adv_evt;
 
     err_code = ble_advertising_init(&m_advertising, &init);
