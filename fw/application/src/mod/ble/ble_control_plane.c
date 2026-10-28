@@ -6,12 +6,32 @@
 #include "nrf_gpio.h"
 #include "mui_input.h"
 #include "bsp_btn.h"
+#include "mui_core.h"
+#include "cache.h"
+#include "nrf_delay.h"
+#include <stdio.h>
 #include <string.h>
+
+#define CP_CHECK(call)                                                             \
+    do {                                                                           \
+        ret_code_t err_ = (call);                                                  \
+        if (err_ != NRF_SUCCESS) {                                                 \
+            char m_[64];                                                           \
+            snprintf(m_, sizeof(m_), "CP ERR %u line %u", (unsigned)err_,          \
+                     (unsigned)__LINE__);                                          \
+            NRF_LOG_ERROR("control plane init failed: %u at line %u", err_,        \
+                          (unsigned)__LINE__);                                     \
+            mui_panic(mui(), m_);                                                  \
+            nrf_delay_ms(3000);                                                    \
+            return;                                                                \
+        }                                                                          \
+    } while (0)
 
 static ble_cp_mode_t m_mode = BLE_CP_MODE_IDLE;
 static uint16_t m_service_handle = BLE_CONN_HANDLE_INVALID;
 static uint16_t m_tx_char_handle = BLE_CONN_HANDLE_INVALID;
 static uint8_t m_base_uuid_type = BLE_UUID_TYPE_VENDOR_BEGIN;
+static uint8_t m_cp_ready = 0;
 
 static ble_uuid_t m_service_uuid = {BLE_CONTROL_PLANE_SERVICE_UUID, BLE_UUID_TYPE_VENDOR_BEGIN};
 
@@ -54,17 +74,17 @@ static void on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
 ble_cp_mode_t ble_control_plane_mode_get(void) { return m_mode; }
 void ble_control_plane_set_mode(ble_cp_mode_t mode) { m_mode = mode; }
 uint8_t ble_control_plane_in_control_mode(void) { return m_mode == BLE_CP_MODE_CONTROL; }
-uint8_t ble_control_plane_uuid_type(void) { return m_base_uuid_type; }
+uint8_t ble_control_plane_uuid_type(void) { return m_cp_ready ? m_base_uuid_type : BLE_UUID_TYPE_UNKNOWN; }
 
 void ble_control_plane_init(void) {
     ret_code_t err_code;
     ble_uuid128_t base_uuid = {0x9e,0xca,0xdc,0x24,0x0e,0xe5,0xa9,0xe0,0x93,0xf3,0xa3,0xb5,0x00,0x00,0x40,0x7e};
     err_code = sd_ble_uuid_vs_add(&base_uuid, &m_base_uuid_type);
-    APP_ERROR_CHECK(err_code);
+    CP_CHECK(err_code);
     m_service_uuid.type = m_base_uuid_type;
 
     err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY, &m_service_uuid, &m_service_handle);
-    APP_ERROR_CHECK(err_code);
+    CP_CHECK(err_code);
 
     ble_gatts_char_md_t char_md = {0};
     ble_gatts_attr_md_t attr_md = {0};
@@ -81,7 +101,7 @@ void ble_control_plane_init(void) {
     attr_char_value.max_len = 20;
     attr_char_value.init_len = 0;
     err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, &handles);
-    APP_ERROR_CHECK(err_code);
+    CP_CHECK(err_code);
     m_tx_char_handle = handles.value_handle;
 
     memset(&char_md, 0, sizeof(char_md));
@@ -100,8 +120,9 @@ void ble_control_plane_init(void) {
     attr_char_value.max_len = 20;
     attr_char_value.init_len = 0;
     err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, &handles);
-    APP_ERROR_CHECK(err_code);
+    CP_CHECK(err_code);
 
+    m_cp_ready = 1;
     NRF_SDH_BLE_OBSERVER(m_cp_observer, 3, on_ble_evt, NULL);
     NRF_LOG_INFO("BLE control plane init");
 }

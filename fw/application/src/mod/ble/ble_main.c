@@ -503,7 +503,8 @@ static void advertising_init(ble_device_mode_t mode) {
     // NUS + control plane cannot both fit the 31-byte scan response, so the
     // control plane UUID rides in the advertising data for the short names
     // (Pixl.js/AmiLoop: 3 + 9 + 18 = 30/31 bytes).
-    if (mode == BLE_DEVICE_MODE_PIXLJS || mode == BLE_DEVICE_MODE_AMILOOP) {
+    if ((mode == BLE_DEVICE_MODE_PIXLJS || mode == BLE_DEVICE_MODE_AMILOOP) &&
+        cp_uuid.type != BLE_UUID_TYPE_UNKNOWN) {
         init.advdata.uuids_complete.uuid_cnt = 1;
         init.advdata.uuids_complete.p_uuids = &cp_uuid;
     }
