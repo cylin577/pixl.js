@@ -16,25 +16,21 @@ static ble_uuid_t m_service_uuid = {BLE_CONTROL_PLANE_SERVICE_UUID, BLE_UUID_TYP
 
 static void apply_button_state(uint8_t a, uint8_t b, uint8_t c) {
     (void)a; (void)b; (void)c;
-    /* software debounce / apply handled by bsp; placeholder */
 }
 
 static void handle_write(const uint8_t *data, uint16_t len) {
     if (len < 4) return;
     uint8_t cmd = data[0];
-    /* status = data[1]; chunk = data[2]|data[3]<<8 */
     if (cmd == 0x01) {
-        /* enter file transfer mode */
-        ble_control_plane_set_mode(BLE_CP_MODE_FILE_TRANSFER);
-        /* defer app launch via scheduler */
+        if (m_mode == BLE_CP_MODE_IDLE || m_mode == BLE_CP_MODE_CONTROL) {
+            ble_control_plane_set_mode(BLE_CP_MODE_FILE_TRANSFER);
+        }
     } else if (cmd == 0x02) {
         ble_control_plane_set_mode(BLE_CP_MODE_CONTROL);
     } else if (cmd == 0x03) {
-        if (m_mode != BLE_CP_MODE_CONTROL) return; /* ignore */
+        if (m_mode != BLE_CP_MODE_CONTROL) return;
         if (len < 7) return;
         apply_button_state(data[4], data[5], data[6]);
-    } else {
-        /* unknown */
     }
 }
 
@@ -53,7 +49,7 @@ uint8_t ble_control_plane_in_control_mode(void) { return m_mode == BLE_CP_MODE_C
 
 void ble_control_plane_init(void) {
     ret_code_t err_code;
-    ble_uuid128_t base_uuid = {0x9e,0xca,0xdc,0x24,0x0e,0x24,0x0e,0xe5,0xa9,0xe0,0x93,0xf3,0xa3,0xb5,0x01,0x00};
+    ble_uuid128_t base_uuid = {0x9e,0xca,0xdc,0x24,0x0e,0xe5,0xa9,0xe0,0x93,0xf3,0xa3,0xb5,0x00,0x00,0x40,0x7e};
     err_code = sd_ble_uuid_vs_add(&base_uuid, &m_base_uuid_type);
     APP_ERROR_CHECK(err_code);
     m_service_uuid.type = m_base_uuid_type;
@@ -61,11 +57,11 @@ void ble_control_plane_init(void) {
     err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY, &m_service_uuid, &m_service_handle);
     APP_ERROR_CHECK(err_code);
 
-    /* TX char write */
     ble_gatts_char_md_t char_md = {0};
     ble_gatts_attr_md_t attr_md = {0};
     ble_gatts_attr_t attr_char_value = {0};
     ble_uuid_t char_uuid = {0x0002, m_base_uuid_type};
+    ble_gatts_char_handles_t handles = {0};
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
     attr_md.vloc = BLE_GATTS_VLOC_STACK;
@@ -75,8 +71,25 @@ void ble_control_plane_init(void) {
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.max_len = 20;
     attr_char_value.init_len = 0;
-    err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, NULL);
+    err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, &handles);
     APP_ERROR_CHECK(err_code);
+    m_tx_char_handle = handles.value_handle;
+
+    memset(&char_md, 0, sizeof(char_md));
+    memset(&attr_md, 0, sizeof(attr_md));
+    memset(&attr_char_value, 0, sizeof(attr_char_value));
+    ble_uuid_t rx_uuid = {0x0003, m_base_uuid_type};
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
+    attr_md.vloc = BLE_GATTS_VLOC_STACK;
+    char_md.char_props.notify = 1;
+    attr_char_value.p_uuid = &rx_uuid;
+    attr_char_value.p_attr_md = &attr_md;
+    attr_char_value.max_len = 20;
+    attr_char_value.init_len = 0;
+    err_code = sd_ble_gatts_characteristic_add(m_service_handle, &char_md, &attr_char_value, &handles);
+    APP_ERROR_CHECK(err_code);
+    m_rx_char_handle = handles.value_handle;
 
     NRF_SDH_BLE_OBSERVER(m_cp_observer, 3, on_ble_evt, NULL);
     NRF_LOG_INFO("BLE control plane init");

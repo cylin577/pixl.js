@@ -1,5 +1,6 @@
 #include "bsp_btn.h"
 #include "app_button.h"
+#include "ble_control_plane.h"
 #include "app_timer.h"
 #include "bsp.h"
 #include "nrf_log.h"
@@ -41,6 +42,7 @@ static uint8_t bsp_button_pin_to_index(uint8_t pin_no) {
 }
 
 static void bsp_button_callback(uint8_t idx, bsp_btn_event_t event) {
+    if (!ble_control_plane_in_control_mode()) return;
     if (m_bsp_btn_event_cb) {
         m_bsp_btn_event_cb(idx, event);
     }
