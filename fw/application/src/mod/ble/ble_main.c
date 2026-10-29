@@ -571,6 +571,7 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
     // Stop any active advertising before re-configuring, otherwise
     // sd_ble_gap_adv_start() fails with NRF_ERROR_INVALID_STATE.
     if (m_advertising.adv_mode_current != BLE_ADV_MODE_IDLE) {
+        ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
         sd_ble_gap_adv_stop(m_advertising.adv_handle);
     }
     if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
