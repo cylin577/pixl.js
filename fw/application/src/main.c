@@ -283,6 +283,11 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
+    // Initialize BLE stack and control plane early so it's always advertising
+    ble_init();
+    ble_device_mode_prepare(BLE_DEVICE_MODE_PIXLJS);
+    ble_adv_start();
+
     // cache_clean(); //FOR TESTING
 
     err_code = settings_init();
