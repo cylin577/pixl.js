@@ -124,5 +124,5 @@ void ble_control_plane_init(void) {
 
     m_cp_ready = 1;
     NRF_SDH_BLE_OBSERVER(m_cp_observer, 3, on_ble_evt, NULL);
-    NRF_LOG_INFO("BLE control plane init");
+    NRF_LOG_INFO("PixLink init");
 }

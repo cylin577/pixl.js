@@ -1,6 +1,6 @@
-# BLE Control Plane (Always-On)
+# PixLink (Always-On)
 
-This document describes the **BLE Control Plane**, a small, always-on BLE interface on Pixl.js.
+This document describes **PixLink**, a small, always-on BLE interface on Pixl.js.
 It is independent of the Nordic UART Service (NUS) file-transfer protocol documented in
 `05+1-ble_protocol.md` and stays available even while the device is not in file-transfer mode.
 
@@ -11,7 +11,7 @@ It exposes exactly **two commands**:
 
 ## Service
 
-- Service name: Pixl Control Plane
+- Service name: PixLink
 - Service UUID: `7e400001-b5a3-f393-e0a9-e50e24dcca9e`
 - Characteristic (write + write-without-response): `7e400002-b5a3-f393-e0a9-e50e24dcca9e` (Control TX)
 - Characteristic (notify): `7e400003-b5a3-f393-e0a9-e50e24dcca9e` (Control RX)
@@ -47,7 +47,7 @@ Numeric types are unsigned, little-endian. No chunk transfer is used; each comma
 
 Switches the device into the normal BLE file-transfer app (the NUS-based protocol in
 `05+1-ble_protocol.md`). After success the device starts advertising the file-transfer
-service and the control plane remains available for mode switching.
+service and PixLink remains available for mode switching.
 
 Request:
 
@@ -119,12 +119,12 @@ mode is ignored.
 - To leave control mode and return to idle, send command `0x01` (enter file transfer) or
   power-cycle. There is no separate "exit control mode" command; mode transitions are
   always initiated by one of the two top-level commands.
-- Physical button long-press behavior is unchanged; the control plane only shadows presses
+- Physical button long-press behavior is unchanged; PixLink only shadows presses
   while in control mode.
 
 ## Notes
 
-- The control plane is always on; mode state is held in RAM and resets on reboot.
+- PixLink is always on; mode state is held in RAM and resets on reboot.
 - Only one client should drive control mode at a time; concurrent writers are not
   arbitrated.
 - Values are applied as-is; the host is responsible for debouncing if needed.
