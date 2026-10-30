@@ -17,6 +17,8 @@ NUS_SERVICE_UUID: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
 
 （上述描述符正式版本可能会修改。）
 
+> 常驻的 PixLink 控制协议是另一个服务，详见 [05+2-ble_protocol_extra.md](05+2-ble_protocol_extra.md)。
+
 # 协议格式
 
 ## 协议定义

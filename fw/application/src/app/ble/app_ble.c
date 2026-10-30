@@ -5,6 +5,7 @@
 
 #include "ble_scene.h"
 #include "ble_status_view.h"
+#include "ble_control_plane.h"
 #include "i18n/language.h"
 
 static void app_ble_on_run(mini_app_inst_t *p_app_inst);
@@ -34,6 +35,9 @@ void app_ble_on_run(mini_app_inst_t *p_app_inst) {
 
 void app_ble_on_kill(mini_app_inst_t *p_app_inst) {
     app_ble_t *p_app_handle = p_app_inst->p_handle;
+
+    // The file transfer app is gone, so the control plane is not in file transfer mode anymore.
+    ble_control_plane_set_mode(BLE_CP_MODE_IDLE);
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);

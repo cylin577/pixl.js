@@ -17,6 +17,8 @@ Sono fornite due caratteristiche:
 
 (La versione ufficiale dei descrittori sopra può essere modificata.)
 
+> Il control plane PixLink sempre attivo è un servizio separato, documentato in [05+2-ble_protocol_extra.md](05+2-ble_protocol_extra.md).
+
 # Formato del protocollo
 
 ## Definizione del protocollo

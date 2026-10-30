@@ -16,5 +16,12 @@ typedef void (* bsp_btn_event_cb_t)(uint8_t btn, bsp_btn_event_t evt);
 
 void bsp_btn_init(bsp_btn_event_cb_t p_event_cb);
 
+/**
+ * @brief State of a physical button.
+ *
+ * @return 1 if the button is currently seen as pressed by the UI, 0 otherwise.
+ */
+uint8_t bsp_btn_is_down(uint8_t idx);
+
 
 #endif

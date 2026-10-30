@@ -15,6 +15,8 @@ typedef enum { BTN_STATE_IDLE, BTN_STATE_PRESSED, BTN_STATE_LONG_PRESSED, BTN_ST
 
 typedef struct {
     uint8_t state;
+    volatile uint8_t down; /**< 1 = the UI currently sees this button as pressed. */
+    uint8_t shadowed;      /**< 1 = this physical press was ignored because control mode was on. */
 } bsp_btn_t;
 
 APP_TIMER_DEF(m_bsp_button_long_push_tmr);
@@ -42,7 +44,6 @@ static uint8_t bsp_button_pin_to_index(uint8_t pin_no) {
 }
 
 static void bsp_button_callback(uint8_t idx, bsp_btn_event_t event) {
-    if (ble_control_plane_in_control_mode()) return;
     if (m_bsp_btn_event_cb) {
         m_bsp_btn_event_cb(idx, event);
     }
@@ -55,9 +56,20 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
     nrf_pwr_mgmt_feed();
 
     uint8_t idx = bsp_button_pin_to_index(pin_no);
+    if (idx == 0xFF) {
+        return;
+    }
+
     if (button_action == APP_BUTTON_PUSH) {
-        // trigger pressed first
-        bsp_button_callback(idx, BSP_BTN_EVENT_PRESSED);
+        if (ble_control_plane_in_control_mode()) {
+            // The software input shadows the physical button, so the press is dropped.
+            // Remember it, so the matching release is dropped as well.
+            m_bsp_btns[idx].shadowed = 1;
+        } else {
+            // trigger pressed first
+            bsp_button_callback(idx, BSP_BTN_EVENT_PRESSED);
+            m_bsp_btns[idx].down = 1;
+        }
 
         switch (m_bsp_btns[idx].state) {
         case BTN_STATE_IDLE:
@@ -77,14 +89,22 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
         }
 
     } else if (button_action == APP_BUTTON_RELEASE) {
-        // trigger release first
-        bsp_button_callback(idx, BSP_BTN_EVENT_RELEASED);
+        uint8_t shadowed = m_bsp_btns[idx].shadowed;
+        m_bsp_btns[idx].shadowed = 0;
+
+        if (!shadowed) {
+            // trigger release first
+            bsp_button_callback(idx, BSP_BTN_EVENT_RELEASED);
+            m_bsp_btns[idx].down = 0;
+        }
 
         switch (m_bsp_btns[idx].state) {
         case BTN_STATE_PRESSED:
             // short push release
             app_timer_stop(m_bsp_button_long_push_tmr);
-            bsp_button_callback(idx, BSP_BTN_EVENT_SHORT);
+            if (!shadowed) {
+                bsp_button_callback(idx, BSP_BTN_EVENT_SHORT);
+            }
             break;
 
         case BTN_STATE_LONG_PRESSED:
@@ -92,12 +112,17 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
             // long and repeat push release
             app_timer_stop(m_bsp_button_repeat_push_tmr);
             break;
+
+        default:
+            break;
         }
 
         m_bsp_btns[idx].state = BTN_STATE_IDLE;
 
     } else if (button_action == BSP_BUTTON_ACTION_LONG_PUSH) {
-        bsp_button_callback(idx, BSP_BTN_EVENT_LONG);
+        if (!m_bsp_btns[idx].shadowed && !ble_control_plane_in_control_mode()) {
+            bsp_button_callback(idx, BSP_BTN_EVENT_LONG);
+        }
 
         // start repeat timer
         err_code = app_timer_start(m_bsp_button_repeat_push_tmr, APP_TIMER_TICKS(BSP_BUTTON_REPEAT_PUSH_TIMEOUT_MS),
@@ -109,7 +134,9 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
 
     } else if (button_action == BSP_BUTTON_ACTION_REPEAT_PUSH) {
         m_bsp_btns[idx].state = BTN_STATE_REPEAT;
-        bsp_button_callback(idx, BSP_BTN_EVENT_REPEAT);
+        if (!m_bsp_btns[idx].shadowed && !ble_control_plane_in_control_mode()) {
+            bsp_button_callback(idx, BSP_BTN_EVENT_REPEAT);
+        }
     }
 }
 
@@ -135,4 +162,11 @@ void bsp_btn_init(bsp_btn_event_cb_t p_event_cb) {
     APP_ERROR_CHECK(err_code);
 
     m_bsp_btn_event_cb = p_event_cb;
+}
+
+uint8_t bsp_btn_is_down(uint8_t idx) {
+    if (idx >= BUTTONS_NUMBER) {
+        return 0;
+    }
+    return m_bsp_btns[idx].down;
 }

@@ -25,7 +25,7 @@ nRF52832 SoC (BLE radio + NFC-A Type 2 tag peripheral) + SPI display (LCD ST7789
 - `fw/application/src/core/` — mini-app registry + launcher (`mini_app_registry.c`, `mini_app_launcher.c`). Apps in `src/app/`: `amiibo` (emulator), `amiibolink`, `amiidb`, `ble` (file transfer, pairs with `web/`), `chameleon` (card emulator, port layer adapts ChameleonUltra), `desktop`, `game`, `player`, `settings`, `status_bar`.
 - `fw/application/src/main.c` — C entrypoint; `src/boards/board_{oled,lcd}.h` hold per-board pin maps.
 
-BLE protocols documented in `docs/en/05+1-ble_protocol.md` (file transfer) and `05+2-amiibolink_ble.md` (AmiiboLink) — keep web/ and firmware in sync with these when changing either side.
+BLE protocols documented in `docs/en/05+1-ble_protocol.md` (file transfer), `docs/en/05+2-ble_protocol_extra.md` (PixLink always-on control plane) and `05+2-amiibolink_ble.md` (AmiiboLink) — keep web/ and firmware in sync with these when changing either side.
 
 ## Firmware build
 

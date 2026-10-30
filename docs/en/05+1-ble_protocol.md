@@ -17,6 +17,8 @@ Two features are provided:
 
 (The official version of the above descriptors may be modified.)
 
+> The always-on PixLink control plane is a separate service, documented in [05+2-ble_protocol_extra.md](05+2-ble_protocol_extra.md).
+
 # Protocol format
 
 ## Protocol definition

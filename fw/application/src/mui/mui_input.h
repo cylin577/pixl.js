@@ -3,6 +3,7 @@
 
 #include "mui_common.h"
 #include "bsp.h"
+#include "bsp_btn.h"
 
 
 typedef enum {
@@ -30,5 +31,7 @@ typedef struct {
 void mui_input_init();
 
 void mui_input_on_bsp_event(bsp_event_t evt);
+
+void mui_input_on_bsp_btn_event(uint8_t btn, bsp_btn_event_t evt);
 
 #endif

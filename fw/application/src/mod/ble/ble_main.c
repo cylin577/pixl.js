@@ -514,8 +514,18 @@ static void advertising_init(ble_device_mode_t mode) {
     init.config.ble_adv_fast_timeout = 0;
     init.evt_handler = on_adv_evt;
 
+    // ble_advertising_init() resets the link handle and the advertising config.
+    // The advertising module only restarts advertising on disconnect when the handle
+    // still matches and the restart is not disabled.
+    uint16_t conn_handle = ble_is_connected() ? m_advertising.current_slave_link_conn_handle : BLE_CONN_HANDLE_INVALID;
+    bool adv_on_disconnect_disabled = m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled;
     err_code = ble_advertising_init(&m_advertising, &init);
     APP_ERROR_CHECK(err_code);
+    if (conn_handle != BLE_CONN_HANDLE_INVALID) {
+        m_advertising.current_slave_link_conn_handle = conn_handle;
+    }
+    // ble_disable() asks for no advertising on disconnect, keep that intent.
+    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = adv_on_disconnect_disabled;
 
     ble_advertising_conn_cfg_tag_set(&m_advertising, APP_BLE_CONN_CFG_TAG);
 }
@@ -590,7 +600,9 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
 }
 
 void ble_adv_start(void) {
-    if (m_ble_initialized && m_advertising.adv_mode_current == BLE_ADV_MODE_IDLE) {
+    // Advertising while connected makes sd_ble_gap_adv_start() fail with
+    // NRF_ERROR_INVALID_STATE, which would trip the app error handler.
+    if (m_ble_initialized && m_advertising.adv_mode_current == BLE_ADV_MODE_IDLE && !ble_is_connected()) {
         advertising_start();
     }
 }

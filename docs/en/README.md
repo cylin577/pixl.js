@@ -42,6 +42,7 @@ This fork is divided in two main sections, Hardware and Firmware
 # Technical Documentation
 
 - [Bluetooth BLE File Transfer protocol](05+1-ble_protocol.md)
+- [PixLink always-on BLE control plane](05+2-ble_protocol_extra.md)
 - [AmiiboLink BLE Protocol](05+2-amiibolink_ble.md)
 - [video player](05+4-video_player.md) (Retired on Firmware 2.5.2 due to flash size restrictions)
 

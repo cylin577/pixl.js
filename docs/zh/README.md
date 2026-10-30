@@ -39,6 +39,7 @@
 # 技术文档
 
 - [蓝牙协议](05+1-ble_protocol.md)
+- [PixLink 常驻蓝牙控制协议](05+2-ble_protocol_extra.md)
 - [AmiiboLink蓝牙协议](05+2-amiibolink_ble.md)
 - [视频播放器](05+4-video_player.md) (由于固件大小限制，从固件版本2.6.2起，此功能已从固件中删除)
 
